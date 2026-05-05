@@ -1,89 +1,155 @@
-```sql
--- =========================
--- USERS (10 usuarios)
--- =========================
-INSERT INTO users (id, username, email, password_hash, created_at) VALUES
-(1, 'admin', 'admin@mail.com', 'hash', NOW()),
-(2, 'ana', 'ana@mail.com', 'hash', NOW()),
-(3, 'juan', 'juan@mail.com', 'hash', NOW()),
-(4, 'maria', 'maria@mail.com', 'hash', NOW()),
-(5, 'pedro', 'pedro@mail.com', 'hash', NOW()),
-(6, 'lucas', 'lucas@mail.com', 'hash', NOW()),
-(7, 'sofia', 'sofia@mail.com', 'hash', NOW()),
-(8, 'diego', 'diego@mail.com', 'hash', NOW()),
-(9, 'laura', 'laura@mail.com', 'hash', NOW()),
-(10, 'carlos', 'carlos@mail.com', 'hash', NOW());
+START TRANSACTION;
+
+-- Si tienes FKs activas, esto evita errores durante el borrado.
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE `tarea_log`;
+TRUNCATE TABLE `tarea`;
+TRUNCATE TABLE `seccion`;
+TRUNCATE TABLE `grupo_usuario`;
+TRUNCATE TABLE `grupo`;
+TRUNCATE TABLE `users`;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- =========================
--- GRUPOS (3 proyectos)
+-- USERS (5)
 -- =========================
-INSERT INTO grupo (id, titulo, descripcion, created_at, updated_at) VALUES
-(1, 'App Web', 'Desarrollo frontend/backend', NOW(), NOW()),
-(2, 'Marketing', 'Campañas y contenido', NOW(), NOW()),
-(3, 'Personal', 'Tareas personales', NOW(), NOW());
-
--- =========================
--- RELACIONES USUARIO-GRUPO
--- =========================
-INSERT INTO grupo_usuario (user_id, grupo_id, rol, baneado, joined_at) VALUES
-(1,1,'admin',false,NOW()),
-(2,1,'editor',false,NOW()),
-(3,1,'editor',false,NOW()),
-(4,1,'lector',false,NOW()),
-(5,1,'lector',true,NOW()),
-
-(1,2,'admin',false,NOW()),
-(6,2,'editor',false,NOW()),
-(7,2,'editor',false,NOW()),
-(8,2,'lector',false,NOW()),
-
-(2,3,'admin',false,NOW()),
-(9,3,'editor',false,NOW()),
-(10,3,'lector',false,NOW());
+INSERT INTO `users` (`id`,`username`,`email`,`password_hash`,`created_at`) VALUES
+(1,'ana','ana@demo.local','$2y$demo_hash',NOW()),
+(2,'ben','ben@demo.local','$2y$demo_hash',NOW()),
+(3,'carla','carla@demo.local','$2y$demo_hash',NOW()),
+(4,'dani','dani@demo.local','$2y$demo_hash',NOW()),
+(5,'elena','elena@demo.local','$2y$demo_hash',NOW());
 
 -- =========================
--- SECCIONES (tipo kanban)
+-- GRUPO (1)
 -- =========================
-INSERT INTO seccion (id, titulo, descripcion, grupo_id, created_at, updated_at) VALUES
-(1,'Backlog','Pendientes',1,NOW(),NOW()),
-(2,'En progreso','Trabajando',1,NOW(),NOW()),
-(3,'Completadas','Hechas',1,NOW(),NOW()),
-
-(4,'Ideas','Marketing ideas',2,NOW(),NOW()),
-(5,'En ejecución','Campañas activas',2,NOW(),NOW()),
-(6,'Finalizadas','Terminadas',2,NOW(),NOW()),
-
-(7,'Pendientes','Cosas por hacer',3,NOW(),NOW()),
-(8,'Haciendo','En curso',3,NOW(),NOW()),
-(9,'Hecho','Finalizado',3,NOW(),NOW());
+INSERT INTO `grupo` (`id`,`titulo`,`descripcion`,`created_at`,`updated_at`) VALUES
+(1,'Demo','Grupo demo para pruebas',NOW(),NOW());
 
 -- =========================
--- TAREAS (muchas + subtareas)
+-- GRUPO_USUARIO (roles)
 -- =========================
-INSERT INTO tarea (id, titulo, descripcion, completada, seccion_id, assigned_user_id, created_at, updated_at) VALUES
-(1,'Login UI','Diseñar pantalla login',false,1,2,NOW(),NOW()),
-(2,'API Auth','Backend autenticación',false,2,3,NOW(),NOW()),
-(3,'Landing Page','Página principal',true,3,4,NOW(),NOW()),
-(4,'Config DB','Configurar base de datos',true,3,1,NOW(),NOW()),
-
-(5,'Campaña Instagram','Posts y reels',false,4,6,NOW(),NOW()),
-(6,'Email marketing','Newsletter',false,5,7,NOW(),NOW()),
-(7,'SEO blog','Optimización SEO',true,6,8,NOW(),NOW()),
-
-(8,'Comprar comida','Supermercado',false,7,9,NOW(),NOW()),
-(9,'Ir al gym','Entrenamiento',false,8,10,NOW(),NOW()),
-(10,'Leer libro','Terminar novela',true,9,2,NOW(),NOW());
+INSERT INTO `grupo_usuario`
+(`user_id`,`grupo_id`,`rol`,`baneado`,`fecha_baneo`,`motivo_baneo`,`joined_at`) VALUES
+(1,1,'owner',false,NULL,NULL,NOW()),
+(2,1,'admin',false,NULL,NULL,NOW()),
+(3,1,'editor',false,NULL,NULL,NOW()),
+(4,1,'lector',false,NULL,NULL,NOW()),
+(5,1,'lector',true,NOW(),'Baneo de prueba',NOW());
 
 -- =========================
--- SUBTAREAS (parent_id)
+-- SECCIONES (2)
 -- =========================
-INSERT INTO tarea (id, titulo, descripcion, completada, seccion_id, parent_id, assigned_user_id, created_at, updated_at) VALUES
-(11,'Input email','Campo email',true,2,1,2,NOW(),NOW()),
-(12,'Input password','Campo password',false,2,1,2,NOW(),NOW()),
+INSERT INTO `seccion` (`id`,`titulo`,`descripcion`,`grupo_id`,`is_default`,`created_at`,`updated_at`) VALUES
+(1,'Default','Sección por defecto',1,true,NOW(),NOW()),
+(2,'Hoy','Cosas para hoy',1,false,NOW(),NOW());
 
-(13,'JWT','Implementar tokens',true,2,2,3,NOW(),NOW()),
-(14,'Refresh token','Sistema refresh',false,2,2,3,NOW(),NOW()),
+-- =========================
+-- TAREAS PUNTUALES ÚNICAS (3+)
+-- Fechas: ayer/hoy/mañana/pasado/futuro
+-- =========================
+INSERT INTO `tarea`
+(`id`,`titulo`,`descripcion`,`tipo`,`fecha_inicio`,`fecha_fin`,`recurrence_rule`,`seccion_id`,`parent_id`,`assigned_user_id`,`created_at`,`updated_at`)
+VALUES
+-- Ayer
+(100,'Llamar al dentista','Pedir cita','puntual',
+  TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 1 DAY), '10:00:00'),
+  NULL,NULL,2,NULL,1,NOW(),NOW()),
 
-(15,'Comprar frutas','Manzanas y plátanos',false,7,8,9,NOW(),NOW()),
-(16,'Comprar carne','Pollo y ternera',false,7,8,9,NOW(),NOW());
-```
+-- Hoy
+(101,'Enviar email a tutor','Dudas sobre el módulo','puntual',
+  TIMESTAMP(CURDATE(), '16:00:00'),
+  TIMESTAMP(CURDATE(), '16:15:00'),
+  NULL,2,NULL,2,NOW(),NOW()),
+
+-- Mañana
+(102,'Comprar material','Cartulina y rotuladores','puntual',
+  TIMESTAMP(DATE_ADD(CURDATE(), INTERVAL 1 DAY), '18:00:00'),
+  NULL,NULL,1,NULL,NULL,NOW(),NOW()),
+
+-- Pasado (hoy +2)
+(103,'Reunión breve','Repasar plan','puntual',
+  TIMESTAMP(DATE_ADD(CURDATE(), INTERVAL 2 DAY), '12:00:00'),
+  NULL,NULL,1,NULL,3,NOW(),NOW()),
+
+-- Futuro (+30)
+(104,'Organizar armario','Cambio de temporada','puntual',
+  TIMESTAMP(DATE_ADD(CURDATE(), INTERVAL 30 DAY), '11:00:00'),
+  NULL,NULL,1,NULL,1,NOW(),NOW());
+
+-- =========================
+-- TAREAS CON SUBTAREAS
+-- 2 tareas padre + 3+ subtareas (>=3)
+-- =========================
+INSERT INTO `tarea`
+(`id`,`titulo`,`descripcion`,`tipo`,`fecha_inicio`,`fecha_fin`,`recurrence_rule`,`seccion_id`,`parent_id`,`assigned_user_id`,`created_at`,`updated_at`)
+VALUES
+-- Padre 1 (hoy)
+(110,'Preparar presentación','Presentación final del proyecto','puntual',
+  TIMESTAMP(CURDATE(), '17:00:00'),
+  TIMESTAMP(CURDATE(), '19:00:00'),
+  NULL,2,NULL,2,NOW(),NOW()),
+
+-- Subtareas del 110 (hoy/mañana/pasado)
+(111,'Diapositivas: índice','Definir estructura','puntual',
+  TIMESTAMP(CURDATE(), '17:10:00'),
+  NULL,NULL,2,110,2,NOW(),NOW()),
+(112,'Diapositivas: demo','Preparar flujo de demo','puntual',
+  TIMESTAMP(DATE_ADD(CURDATE(), INTERVAL 1 DAY), '12:00:00'),
+  NULL,NULL,2,110,2,NOW(),NOW()),
+(113,'Diapositivas: conclusiones','Resumen final','puntual',
+  TIMESTAMP(DATE_ADD(CURDATE(), INTERVAL 2 DAY), '10:00:00'),
+  NULL,NULL,2,110,2,NOW(),NOW()),
+
+-- Padre 2 (futuro +7)
+(120,'Limpieza cocina','Limpieza a fondo','puntual',
+  TIMESTAMP(DATE_ADD(CURDATE(), INTERVAL 7 DAY), '10:00:00'),
+  NULL,NULL,1,NULL,1,NOW(),NOW()),
+
+-- Subtareas del 120
+(121,'Limpieza: nevera','Tirar caducados','puntual',
+  TIMESTAMP(DATE_ADD(CURDATE(), INTERVAL 7 DAY), '10:30:00'),
+  NULL,NULL,1,120,1,NOW(),NOW()),
+(122,'Limpieza: horno','Desengrasar','puntual',
+  TIMESTAMP(DATE_ADD(CURDATE(), INTERVAL 8 DAY), '10:30:00'),
+  NULL,NULL,1,120,NULL,NOW(),NOW());
+
+-- =========================
+-- HÁBITOS (3)
+-- =========================
+INSERT INTO `tarea`
+(`id`,`titulo`,`descripcion`,`tipo`,`fecha_inicio`,`fecha_fin`,`recurrence_rule`,`seccion_id`,`parent_id`,`assigned_user_id`,`created_at`,`updated_at`)
+VALUES
+(200,'Beber agua','8 vasos','habito',NULL,NULL,'daily',1,NULL,1,NOW(),NOW()),
+(201,'Leer 20 min','Lectura diaria','habito',NULL,NULL,'daily',1,NULL,2,NOW(),NOW()),
+(202,'Ejercicio','Rutina','habito',NULL,NULL,'weekly:1,3,5',1,NULL,NULL,NOW(),NOW());
+
+-- =========================
+-- COMPLETADOS (tarea_log)
+-- - puntuales: algunas completadas
+-- - subtareas: algunas completadas
+-- - hábitos: ayer/hoy para rachas + ejemplo mañana (si NO quieres futuro, bórralo)
+-- =========================
+INSERT INTO `tarea_log`
+(`id`,`tarea_id`,`fecha`,`completada`,`completed_at`,`completed_by_user_id`)
+VALUES
+-- Puntuales completadas
+(1,100,DATE_SUB(CURDATE(), INTERVAL 1 DAY),true,DATE_SUB(NOW(), INTERVAL 1 DAY),1),
+(2,101,CURDATE(),true,NOW(),2),
+
+-- Subtareas completadas
+(3,111,CURDATE(),true,NOW(),2),
+
+-- Hábitos (racha: ayer + hoy)
+(4,200,DATE_SUB(CURDATE(), INTERVAL 1 DAY),true,DATE_SUB(NOW(), INTERVAL 1 DAY),1),
+(5,200,CURDATE(),true,NOW(),1),
+
+-- Otro hábito completado hoy
+(6,201,CURDATE(),true,NOW(),2),
+
+-- (Opcional) ejemplo de “mañana” para ver cómo se vería en calendario:
+(7,201,DATE_ADD(CURDATE(), INTERVAL 1 DAY),true,DATE_ADD(NOW(), INTERVAL 1 DAY),2);
+
+COMMIT;
