@@ -14,7 +14,7 @@
             <a href="habitos.html"><i class="fa-solid fa-location-pin"></i></a>
         </li>
         <li>
-            <a href="#"><i class="fa-solid fa-gear"></i></a>
+            <a href="?page=logout"><i class="fa-solid fa-gear"></i></a>
         </li>
     </ul>
 </nav>
