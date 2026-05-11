@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../app/controllers/AuthController.php';
 
+
 $page = $_GET['page'] ?? 'home';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,6 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'login':
             AuthController::login();
+            break;
+
+        case 'logout':
+            AuthController::logout();
             break;
     }
 }
