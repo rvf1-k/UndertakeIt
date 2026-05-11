@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--//TODO: Control de pagina para cambiar title -->
+    <title>Hoy</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="content">
+        <header>
+            <i class="fa-solid fa-bars"></i>
+            <!-- //TODO: Control de pagina para cambiar titulo html-->
+            <h1>Hoy</h1>
+        </header>
