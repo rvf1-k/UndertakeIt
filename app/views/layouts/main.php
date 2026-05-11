@@ -2,13 +2,19 @@
 
     <?php
 
-    if (isset($_SESSION['user_id'])) {
 
-        $page = $_GET['page'] ?? 'home';
+    $page = $_GET['page'] ?? null;
+
+    if (!isset($_SESSION['user_id'])) {
+
+        if ($page !== 'register') {
+
+            $page = 'login';
+        }
     } else {
-        $page = $_GET['page'] ?? 'login';
-    }
 
+        $page = $page ?? 'home';
+    }
 
     switch ($page) {
 
@@ -22,6 +28,14 @@
 
         case 'dashboard':
             include_once __DIR__ . '/../pages/dashboard.php';
+            break;
+
+        case 'calendario':
+            include_once __DIR__ . '/../pages/task/calendar.php';
+            break;
+
+        case 'habitos':
+            include_once __DIR__ . '/../pages/task/list.php';
             break;
 
         default:

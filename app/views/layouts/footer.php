@@ -13,9 +13,14 @@
         <li>
             <a href="?page=habitos"><i class="fa-solid fa-location-pin"></i></a>
         </li>
-        <li>
-            <a href="?page=logout"><i class="fa-solid fa-gear"></i></a>
-        </li>
+        <!-- //TODO: Temporal hasta tener pagina de ajustes -->
+        <form action="?page=logout" method="POST">
+
+            <button type="submit" class="link-button">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+
+        </form>
     </ul>
 </nav>
 </body>
