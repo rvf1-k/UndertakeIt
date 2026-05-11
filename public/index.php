@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../app/controllers/AuthController.php';
 
+session_start();
 
 $page = $_GET['page'] ?? 'home';
 
