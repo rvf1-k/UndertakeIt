@@ -37,4 +37,24 @@ class User
             ':password_hash' => $passwordHash
         ]);
     }
+
+    public static function findByEmail($email)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT *
+        FROM users
+        WHERE email = :email
+        LIMIT 1
+    ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':email' => $email
+        ]);
+
+        return $stmt->fetch();
+    }
 }
