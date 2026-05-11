@@ -19,4 +19,6 @@
         Registrarse
     </button>
 
+    <p>Tengo cuenta <a href='?page=login'>iniciar sesión</a>.</p>
+
 </form>
