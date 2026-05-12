@@ -1,0 +1,29 @@
+{
+  "name": "undertakeit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./resources/css/input.css -o ./public/assets/css/style.css --watch",
+    "build": "npx @tailwindcss/cli -i ./resources/css/input.css -o ./public/assets/css/style.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rvf1-k/UndertakeIt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rvf1-k/UndertakeIt/issues"
+  },
+  "homepage": "https://github.com/rvf1-k/UndertakeIt#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  }
+}
