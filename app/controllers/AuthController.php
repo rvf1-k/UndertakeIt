@@ -46,6 +46,7 @@ class AuthController
 
             //die("Usuario no encontrado");
             echo "Usuario no encontrado";
+            return;
         }
 
         $passwordCorrecta = password_verify(
@@ -57,6 +58,7 @@ class AuthController
 
             //die("Password incorrecta");
             echo "Password incorrecta";
+            return;
         }
 
         $_SESSION['user_id'] = $user['id'];
