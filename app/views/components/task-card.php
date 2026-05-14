@@ -1,3 +1,4 @@
+<!-- //TODO: -->
 <div class="background_crear oculto">
     <span class="back"><i class="fa-solid fa-angle-left"></i>Back</span>
     <form class="crear">
@@ -13,5 +14,6 @@
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
         </div>
-    </form>
+        <input type="hidden" name="action" value="??">
+</form>
 </div>

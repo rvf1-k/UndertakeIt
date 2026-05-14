@@ -21,4 +21,5 @@
 
     <p>Tengo cuenta <a href='?page=login'>iniciar sesión</a>.</p>
 
+    <input type="hidden" name="action" value="register">
 </form>

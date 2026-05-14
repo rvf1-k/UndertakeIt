@@ -2,7 +2,6 @@
 
     <?php
 
-
     $page = $_GET['page'] ?? null;
 
     if (!isset($_SESSION['user_id'])) {
@@ -19,29 +18,30 @@
     switch ($page) {
 
         case 'register':
-            include_once __DIR__ . '/../pages/register.php';
+            $view = 'register.php';
             break;
 
         case 'login':
-            include_once __DIR__ . '/../pages/login.php';
+            $view = 'login.php';
             break;
 
         case 'dashboard':
-            include_once __DIR__ . '/../pages/dashboard.php';
+            $view = 'dashboard.php';
             break;
 
         case 'calendario':
-            include_once __DIR__ . '/../pages/task/calendar.php';
+            $view = 'task/calendar.php';
             break;
 
         case 'habitos':
-            include_once __DIR__ . '/../pages/task/list.php';
+            $view = 'task/list.php';
             break;
 
         default:
-            include_once __DIR__ . '/../pages/dashboard.php';
+            $view = 'dashboard.php';
     }
 
+    include_once __DIR__ . '/../pages/' . $view;
     ?>
 
 </main>
