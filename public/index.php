@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../app/controllers/AuthController.php';
+require_once __DIR__ . '/../app/controllers/GroupController.php';
 require_once __DIR__ . '/../app/helpers/auth.php';
 
 session_start();
@@ -23,6 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'logout':
             AuthController::logout();
+            break;
+
+        case 'add-group':
+            GroupController::createGroup();
             break;
     }
 }

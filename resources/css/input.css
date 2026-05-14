@@ -4,11 +4,6 @@
 
 /*TODO: El estilo no está del todo definido, este es temporal*/
 
-* {
-  padding: 0;
-  margin: 0;
-}
-
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -82,7 +77,7 @@ nav {
   z-index: 100;
 }
 
-ul {
+nav > ul {
   display: flex;
   justify-content: space-around;
   list-style: none;
@@ -239,6 +234,67 @@ a > i {
   display: none;
 }
 
+button {
+    padding: 2px 6px;
+
+    border: 1px solid #767676;
+    border-radius: 2px;
+
+    background: linear-gradient(
+        to bottom,
+        #f4f4f4,
+        #dcdcdc
+    );
+
+    color: black;
+
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+
+    cursor: pointer;
+
+    transition:
+        background 0.1s,
+        border-color 0.1s,
+        transform 0.05s;
+}
+
+/* Hover */
+button:hover {
+    background: linear-gradient(
+        to bottom,
+        #ffffff,
+        #d7d7d7
+    );
+
+    border-color: #5a5a5a;
+}
+
+/* Pulsado */
+button:active {
+    background: linear-gradient(
+        to bottom,
+        #d0d0d0,
+        #f0f0f0
+    );
+
+    transform: translateY(1px);
+}
+
+/* Focus */
+button:focus-visible {
+    outline: 1px dotted black;
+    outline-offset: 1px;
+}
+
+/* Disabled */
+button:disabled {
+    color: #777;
+    background: #e5e5e5;
+    border-color: #b5b5b5;
+    cursor: not-allowed;
+}
+
 @media (min-width: 768px) {
   .listar,
   .calendario,
@@ -272,7 +328,7 @@ a > i {
     background: white;
     z-index: 100;
   }
-  ul {
+  nav > ul {
     display: flex;
     flex-direction: column;
     gap: 2em;
