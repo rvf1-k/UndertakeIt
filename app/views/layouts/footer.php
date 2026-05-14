@@ -1,6 +1,7 @@
 </div>
 
 <?php include_once __DIR__ . '/../components/navbar.php'; ?>
+<?php include_once __DIR__ . '/../components/groups/add-groups.php'; ?>
 
 <nav>
     <ul>
@@ -23,10 +24,11 @@
                 <i class="fa-solid fa-gear"></i>
             </button>
 
+            <input type="hidden" name="action" value="logout">
         </form>
     </ul>
 </nav>
 </body>
-<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="assets/js/app.js"></script>
 
 </html>
