@@ -1,13 +1,17 @@
 <?php
 
 require_once __DIR__ . '/../app/controllers/AuthController.php';
+require_once __DIR__ . '/../app/helpers/auth.php';
 
 session_start();
 
 $page = $_GET['page'] ?? 'home';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    switch ($page) {
+
+    $action = $_POST['action'] ?? null;
+
+    switch ($action) {
 
         case 'register':
             AuthController::register();
