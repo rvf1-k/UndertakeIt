@@ -1,23 +1,32 @@
 </div>
+
+<?php include_once __DIR__ . '/../components/navbar.php'; ?>
+
 <nav>
     <ul>
         <li>
-            <a href="index.html"><i class="fa-solid fa-clipboard-list"></i></a>
+            <a href="?page=dashboard"><i class="fa-solid fa-clipboard-list"></i></a>
         </li>
         <li>
-            <a href="calendario.html"><i class="fa-solid fa-calendar-days"></i></a>
+            <a href="?page=calendario"><i class="fa-solid fa-calendar-days"></i></a>
         </li>
         <li>
             <a id="crear"><i class="fa-solid fa-circle-plus"></i></a>
         </li>
         <li>
-            <a href="habitos.html"><i class="fa-solid fa-location-pin"></i></a>
+            <a href="?page=habitos"><i class="fa-solid fa-location-pin"></i></a>
         </li>
-        <li>
-            <a href="#"><i class="fa-solid fa-gear"></i></a>
-        </li>
+        <!-- //TODO: Temporal hasta tener pagina de ajustes -->
+        <form action="?page=logout" method="POST">
+
+            <button type="submit" class="link-button">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+
+        </form>
     </ul>
 </nav>
 </body>
 <script type="text/javascript" src="app.js"></script>
+
 </html>

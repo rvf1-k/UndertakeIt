@@ -16,4 +16,5 @@
 
     <p>Si no tienes cuenta <a href='?page=register'>registrate</a>.</p>
 
+    <input type="hidden" name="action" value="login">
 </form>
