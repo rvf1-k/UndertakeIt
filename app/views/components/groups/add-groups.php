@@ -1,5 +1,5 @@
 <div
-    id="task-modal"
+    id="task-modal-group"
     class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
 
     <div
@@ -42,7 +42,7 @@
 
                 <button
                     type="button"
-                    id="close-modal"
+                    id="close-modal-group"
                     class="px-4 py-2 border rounded-lg">
                     Cancelar
                 </button>

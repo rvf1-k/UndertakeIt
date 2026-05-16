@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--//TODO: Control de pagina para cambiar title -->
-    <title>Hoy</title>
+    <title><?= htmlspecialchars($title)?> - Undertakeit</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link
     rel="stylesheet"
@@ -20,5 +20,5 @@
         <header>
             <i class="fa-solid fa-bars"></i>
             <!-- //TODO: Control de pagina para cambiar titulo html-->
-            <h1>Hoy</h1>
+            <h1><?= htmlspecialchars($title) ?></h1>
         </header>

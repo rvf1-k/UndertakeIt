@@ -7,7 +7,7 @@
         </ul>
     </section>
     <!-- //TODO: Temporal -->
-     <button id="crear" type="button">Crear grupo</button>
+     <button id="crear-group" type="button">Crear grupo</button>
     <br>
     <hr>
     <br>
