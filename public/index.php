@@ -2,11 +2,14 @@
 
 require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/GroupController.php';
+require_once __DIR__ . '/../app/controllers/SectionController.php';
 require_once __DIR__ . '/../app/helpers/auth.php';
+require_once __DIR__ . '/../app/helpers/title.php';
 
 session_start();
 
 $page = $_GET['page'] ?? 'home';
+$title = getTitle($page);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -28,6 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'add-group':
             GroupController::createGroup();
+            break;
+        case 'add-section':
+            $groupId = getGroupId();
+            SectionController::createSection($groupId);
             break;
     }
 }
