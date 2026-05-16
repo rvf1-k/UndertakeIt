@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../models/Group.php';
 require_once __DIR__ . '/../models/GrupoUsuario.php';
+require_once __DIR__ . '/../models/Section.php';
 
 class GroupController
 {
@@ -15,13 +16,16 @@ class GroupController
         }
 
         $titulo = trim($_POST['titulo']);
-        $descripcion = trim($_POST['descripcion']);
+        $descripcion = trim($_POST['descripcion']) ?? null;
 
         $lastId = Grupo::create(
             $titulo,
             $descripcion
         );
+        
+        Section::createFirst($lastId);
 
+        //TODO: debug        
         if (!$lastId) {
             echo "Error creando el grupo";
         } else {
@@ -40,7 +44,7 @@ class GroupController
 
     public static function GroupList()
     {
-        $groups = GrupoUsuario::findGroupsByUser();;
+        $groups = GrupoUsuario::findGroupsByUser();
 
         echo '<ul>';
 
@@ -57,5 +61,11 @@ class GroupController
         }
 
         echo '</ul>';
+    }
+
+    public static function GroupTitle(int $id)
+    {
+        $group = Grupo::findGroupsTitle($id);
+        return $group['titulo'];
     }
 }
