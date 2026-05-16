@@ -1,11 +1,23 @@
-const openButton = document.getElementById("crear");
-const closeButton = document.getElementById("close-modal");
-const modal = document.getElementById("task-modal");
+const openButtonGroup = document.getElementById("crear-group");
+const closeButtonGroup = document.getElementById("close-modal-group");
+const modalGroup = document.getElementById("task-modal-group");
 
-openButton.addEventListener("click", () => {
-    modal.classList.remove("hidden");
+openButtonGroup.addEventListener("click", () => {
+    modalGroup.classList.remove("hidden");
 });
 
-closeButton.addEventListener("click", () => {
-    modal.classList.add("hidden");
+closeButtonGroup.addEventListener("click", () => {
+    modalGroup.classList.add("hidden");
+});
+
+const openButtonSection = document.getElementById("crear-section");
+const closeButtonSection = document.getElementById("close-modal-section");
+const modalSection = document.getElementById("task-modal-section");
+
+openButtonSection.addEventListener("click", () => {
+    modalSection.classList.remove("hidden");
+});
+
+closeButtonSection.addEventListener("click", () => {
+    modalSection.classList.add("hidden");
 });
