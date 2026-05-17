@@ -47,7 +47,7 @@ public static function SectionList(int $groupId)
             <div class="p-5 border-t border-gray-200 bg-white">
                 <button 
                     type="button"
-                    id="crear-section"
+                    id="crear-tarea"
                     class="w-full py-3 px-4 border border-gray-300 bg-gray-100 hover:bg-gray-200 transition text-sm font-medium text-gray-700"
                 >
                     <i class="fa-solid fa-plus mr-2"></i>
@@ -104,7 +104,7 @@ public static function SectionList(int $groupId)
         if (!$lastId) {
             echo "Error creando el grupo";
         } else {
-            //TODO: Añadir tarea
+            //TODO: Añadir tarea?
         }
     }
 }
