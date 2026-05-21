@@ -68,17 +68,12 @@ class GroupController
         foreach ($groups as $group) {
             echo "
 <li class='menu-container relative'>
-
-    <form action='?page=group&id={$group['grupo_id']}' method='POST'>
-
         <div class='flex items-center justify-between'>
 
-            <button
-                type='submit'
-                class='flex-1 text-left'
+            <a class='flex-1 text-left' href='?page=group&id={$group['grupo_id']}'
             >
                 " . htmlspecialchars($group['titulo']) . "
-            </button>
+            </a>
 
             <div class='relative'>
 
@@ -91,24 +86,7 @@ class GroupController
 
                 <div class='menu-popup hidden absolute left-10 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[150px]'>
 
-                    <form method='POST'>
-
-                        <input
-                            type='hidden'
-                            name='group_id'
-                            value='{$group['grupo_id']}'
-                        >
-
-                        <button
-                            type='button'
-                            class='edit-group-btn w-full text-left px-4 py-2 hover:bg-gray-100'
-                            data-id='{$group['grupo_id']}'
-                            data-title='" . htmlspecialchars($group['titulo'], ENT_QUOTES) . "'
-                        >
-                            Editar
-                        </button>
-
-                    </form>
+                    <a href='?page=edit-group&id={$group['grupo_id']}'>Editar</a>
 
                     <form method='POST'>
 
@@ -134,81 +112,75 @@ class GroupController
             </div>
 
         </div>
-
-        <input
-            type='hidden'
-            name='action'
-            value='view-group'
-        >
-
-    </form>
-
 </li>
 ";
         }
 
         echo '</ul>';
-        echo "
-
-<div
-    id='edit-group-modal'
-    class='hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50'
->
-
-    <div class='bg-white rounded-xl p-6 w-full max-w-md'>
-
-        <h2 class='text-xl font-semibold mb-4'>
-            Editar grupo
-        </h2>
-
-        <form method='POST'>
-
-            <input
-                type='hidden'
-                name='group_id'
-                id='edit-group-id'
-            >
-
-            <input
-                type='text'
-                name='title'
-                id='edit-group-title'
-                class='w-full border border-gray-300 rounded-lg px-4 py-2 mb-4'
-            >
-
-            <div class='flex justify-end gap-2'>
-
-                <button
-                    type='button'
-                    id='close-edit-modal'
-                    class='px-4 py-2 border rounded-lg'
-                >
-                    Cancelar
-                </button>
-
-                <button
-                    type='submit'
-                    name='action'
-                    value='edit-group'
-                    class='px-4 py-2 bg-blue-600 text-white rounded-lg'
-                >
-                    Guardar
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-";
     }
 
     public static function GroupTitle(int $id)
     {
         $group = Grupo::findGroupsTitle($id);
         return $group['titulo'];
+    }
+
+    public static function userRol(int $groupId): String
+    {
+        $userId = currentUserId();
+
+        return GrupoUsuario::findUserRol($userId, $groupId);
+    }
+
+    public static function watchGroup(int $groupId)
+    {
+        switch (self::userRol($groupId)) {
+            case 'owner':
+            case 'admin':
+            case 'editor':
+            case 'lector':
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static function editGroup(int $groupId)
+    {
+        switch (self::userRol($groupId)) {
+            case 'owner':
+            case 'admin':
+            case 'editor':
+                return true;
+            case 'lector':
+            default:
+                return false;
+        }
+    }
+
+    public static function adminGroup(int $groupId)
+    {
+        switch (self::userRol($groupId)) {
+            case 'owner':
+            case 'admin':
+                return true;
+            case 'editor':
+            case 'lector':
+            default:
+                return false;
+        }
+    }
+
+    public static function ownGroup(int $groupId)
+    {
+        switch (self::userRol($groupId)) {
+            case 'owner':
+                return true;
+            case 'admin':
+            case 'editor':
+            case 'lector':
+            default:
+                return false;
+        }
     }
 }

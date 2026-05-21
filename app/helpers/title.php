@@ -18,7 +18,11 @@ function getTitle(string $page): String
 
         case 'group':
             $groupId = getGroupId();
-            $title = GroupController::GroupTitle($groupId);
+            if (GroupController::watchGroup($groupId)) {
+                $title = GroupController::GroupTitle($groupId);
+            } else {
+                $title = "Este grupo es privado 🔒";
+            }
             break;
 
         case 'calendario':
