@@ -43,4 +43,17 @@ class Grupo
 
         return $stmt->fetch();
     }
+    
+    public static function delete(int $id)
+    {
+        $conexion = conexion();
+
+        $sql = "DELETE FROM grupo WHERE grupo.id = :currentGroupId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentGroupId' => $id
+        ]);
+    }
 }

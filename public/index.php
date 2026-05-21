@@ -32,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'add-group':
             GroupController::createGroup();
             break;
+        case 'delete-group':
+            GroupController::deleteGroup();
+            break;
         case 'add-section':
             $groupId = getGroupId();
             SectionController::createSection($groupId);
