@@ -5,6 +5,7 @@ require_once __DIR__ . '/../app/controllers/GroupController.php';
 require_once __DIR__ . '/../app/controllers/SectionController.php';
 require_once __DIR__ . '/../app/helpers/auth.php';
 require_once __DIR__ . '/../app/helpers/title.php';
+require_once __DIR__ . '/../app/helpers/url_helper.php';
 
 session_start();
 
