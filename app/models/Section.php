@@ -25,7 +25,7 @@ class Section
 
         return $conexion->lastInsertId();
     }
-    
+
     public static function create(int $groupId, string $titulo, string $descripcion)
     {
         $conexion = conexion();
@@ -59,7 +59,7 @@ class Section
     {
         $conexion = conexion();
 
-        $sql = "SELECT titulo, descripcion  FROM seccion WHERE grupo_id = :currentGroupId;";
+        $sql = "SELECT id, titulo, descripcion  FROM seccion WHERE grupo_id = :currentGroupId;";
 
         $stmt = $conexion->prepare($sql);
 
@@ -68,5 +68,18 @@ class Section
         ]);
 
         return $stmt->fetchAll();
+    }
+
+    public static function delete(int $id)
+    {
+        $conexion = conexion();
+
+        $sql = "DELETE FROM seccion WHERE seccion.id = :currentSectionId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentSectionId' => $id
+        ]);
     }
 }
