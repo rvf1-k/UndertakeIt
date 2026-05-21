@@ -53,10 +53,14 @@ class GroupController
 
         $group_id = trim($_POST['group_id']);
 
-        //TODO: Comprobar que existe el grupo
-        Grupo::delete(
-            $group_id
-        );
+        if (self::ownGroup($group_id)) {
+            Grupo::delete(
+                $group_id
+            );
+        } else {
+            echo "No tienes permiso para borrar este grupo";
+            return;
+        }
     }
 
     public static function GroupList()
