@@ -53,4 +53,20 @@ class GrupoUsuario
 
         return $stmt->fetchAll();
     }
+
+    public static function findUserRol(int $userId, int $groupId)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT rol FROM grupo_usuario WHERE user_id = :currentUserId AND grupo_id = :currentGroupId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId,
+            ':currentGroupId' => $groupId
+        ]);
+
+        return $stmt->fetchColumn();
+    }
 }
