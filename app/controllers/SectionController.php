@@ -33,27 +33,12 @@ class SectionController
             <!-- Popup -->
             <div class="menu-popup hidden absolute right-0 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[150px]">
 
-                <form method="POST">
-                    <input
-                        type="hidden"
-                        name="section_id"
-                        value="' . htmlspecialchars($section['id']) . '"
-                    >
-
-                    <button
-                        type="submit"
-                        name="action"
-                        value="edit-section"
-                        class="w-full text-left px-4 py-2 hover:bg-gray-100"
-                    >
-                        Editar
-                    </button>
-                </form>
+                <a href="?page=edit-section&id=' . $groupId . '&id-section=' . $section["id"] . '">Editar</a>
 
                 <form method="POST">
                     <input
                         type="hidden"
-                        name="section_id"
+                        name="sectionId"
                         value="' . htmlspecialchars($section['id']) . '"
                     >
 
@@ -152,20 +137,68 @@ class SectionController
         }
     }
 
-    public static function deleteGroup()
+    public static function deleteSection()
     {
         if (
-            empty($_POST['section_id'])
+            empty($_POST['sectionId'])
         ) {
             echo "No hay un id de un grupo";
             return;
         }
 
-        $section_id = trim($_POST['section_id']);
+        $sectionId = trim($_POST['sectionId']);
 
-        //TODO: Comprobar que existe la seccion
-        Section::delete(
-            $section_id
+        $group_id = Section::findSectionsIdGroups($sectionId);
+
+        if (GroupController::ownGroup($group_id)) {
+            Section::delete(
+                $sectionId
+            );
+        } else {
+            echo "No tienes permiso para borrar este grupo";
+            return;
+        }
+    }
+
+    public static function getSection(int $sectionId)
+    {
+        $section = Section::getSections($sectionId);
+        return $section;
+    }
+
+    public static function isInGroup(int $sectionId, int $groupId)
+    {
+        return Section::isInGroup($sectionId, $groupId);
+    }
+
+    public static function editSection(int $sectionId, int $groupId)
+    {
+        if (!GroupController::adminGroup($groupId)) {
+            echo "No tienes permiso para editar las secciones";
+            return;
+        }
+
+        if (!SectionController::isInGroup($sectionId, $groupId)) {
+            echo "No existe esta seccion";
+            return;
+        }
+
+        if (
+            empty($_POST['titulo'])
+        ) {
+            echo "Añade un titulo";
+            return;
+        }
+
+        $titulo = trim($_POST['titulo']);
+        $descripcion = trim($_POST['descripcion']) ?? null;
+
+        Section::edit(
+            $sectionId,
+            $titulo,
+            $descripcion
         );
+
+        header("Location: ?page=group&id={$groupId}");
     }
 }

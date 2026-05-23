@@ -70,6 +70,21 @@ class Section
         return $stmt->fetchAll();
     }
 
+    public static function findSectionsIdGroups(int $sectionId)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT grupo_id FROM seccion WHERE id = :currentSectionId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentSectionId' => $sectionId
+        ]);
+
+        return $stmt->fetchColumn();
+    }
+
     public static function delete(int $id)
     {
         $conexion = conexion();
@@ -80,6 +95,52 @@ class Section
 
         $stmt->execute([
             ':currentSectionId' => $id
+        ]);
+    }
+
+    public static function getSections(int $id)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT * FROM seccion WHERE id = :currentSectionId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentSectionId' => $id
+        ]);
+
+        return $stmt->fetch();
+    }
+
+    public static function isInGroup(int $sectionId, int $groupId)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT 1 FROM seccion WHERE grupo_id = :GroupId and id = :currentSectionId LIMIT 1";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':GroupId' => $groupId,
+            ':currentSectionId' => $sectionId
+        ]);
+
+        return (bool) $stmt->fetchColumn();
+    }
+
+    public static function edit(int $id, string $titulo, string $descripcion)
+    {
+        $conexion = conexion();
+
+        $sql = "UPDATE seccion SET titulo = :titulo, descripcion = :descripcion WHERE seccion.id = :currentSeccionId";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':titulo' => $titulo,
+            ':descripcion' => $descripcion,
+            ':currentSeccionId' => $id
         ]);
     }
 }
