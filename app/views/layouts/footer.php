@@ -34,6 +34,6 @@
     </ul>
 </nav>
 </body>
-<script type="text/javascript" src="assets/js/app.js"></script>
+<script type="module" src="assets/js/app.js"></script>
 
 </html>
