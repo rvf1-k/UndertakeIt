@@ -33,7 +33,8 @@ class GroupController
 
             $groupCreated = GrupoUsuario::addUser(
                 $userId,
-                $lastId
+                $lastId,
+                'owner'
             );
 
             if (!$groupCreated) {
@@ -125,7 +126,7 @@ class GroupController
 
     public static function GroupTitle(int $id)
     {
-        $group = Grupo::findGroupsTitle($id);
+        $group = Grupo::getGroups($id);
         return $group['titulo'];
     }
 
@@ -133,7 +134,7 @@ class GroupController
     {
         $userId = currentUserId();
 
-        return GrupoUsuario::findUserRol($userId, $groupId);
+        return GrupoUsuario::getUserRol($userId, $groupId);
     }
 
     public static function watchGroup(int $groupId)
@@ -149,7 +150,7 @@ class GroupController
         }
     }
 
-    public static function editGroup(int $groupId)
+    public static function editorGroup(int $groupId)
     {
         switch (self::userRol($groupId)) {
             case 'owner':
@@ -185,6 +186,104 @@ class GroupController
             case 'lector':
             default:
                 return false;
+        }
+    }
+
+    public static function getGroup(int $group_id)
+    {
+        $group = Grupo::getGroups($group_id);
+        return $group;
+    }
+
+    public static function getUsers(int $group_id)
+    {
+        $users = GrupoUsuario::getUsers($group_id);
+        return $users;
+    }
+
+    public static function editGroup(int $group_id)
+    {
+        if (!self::adminGroup($group_id)) {
+            echo "No tienes permiso para editar los grupos";
+            return;
+        }
+
+        if (
+            empty($_POST['titulo'])
+        ) {
+            echo "Añade un titulo";
+            return;
+        }
+
+        $titulo = trim($_POST['titulo']);
+        $descripcion = trim($_POST['descripcion']) ?? null;
+
+        Grupo::edit(
+            $group_id,
+            $titulo,
+            $descripcion
+        );
+
+        header("Location: ?page=edit-group&id={$group_id}");
+    }
+
+    public static function addUser(int $group_id)
+    {
+
+        if (!self::adminGroup($group_id)) {
+            echo "No tienes permiso para añadir usuarios a este grupo";
+            return;
+        }
+
+        if (
+            empty($_POST['new_user_email'])
+            ||
+            empty($_POST['new_user_role'])
+        ) {
+            echo "Faltan datos";
+            return;
+        }
+
+        $email = trim($_POST['new_user_email']);
+        $role = trim($_POST['new_user_role']) ?? "Lector";
+
+        if (!UserController::existUser($email)) {
+            echo "Este usuario no existe";
+            return;
+        }
+
+        $userId = UserController::getIdUser($email);
+
+        GrupoUsuario::addUser(
+            $userId,
+            $group_id,
+            $role
+        );
+
+        header("Location: ?page=edit-group&id={$group_id}");
+    }
+
+    public static function editGroupUsers(int $group_id)
+    {
+        if (!self::adminGroup($group_id)) {
+            echo "No tienes permiso para añadir usuarios a este grupo";
+            return;
+        }
+
+        $roles = $_POST['roles'] ?? [];
+
+        foreach ($roles as $userId => $nuevoRol) {
+
+            $userId = (int)$userId;
+
+            $rolesPermitidos = ['lector', 'editor', 'admin'];
+            if (!in_array($nuevoRol, $rolesPermitidos)) {
+                continue;
+            }
+
+            GrupoUsuario::editGroupUsers($group_id, $userId, $nuevoRol);
+
+            header("Location: ?page=edit-group&id={$group_id}");
         }
     }
 }

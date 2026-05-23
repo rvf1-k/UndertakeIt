@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/GroupController.php';
+require_once __DIR__ . '/../app/controllers/UserController.php';
 require_once __DIR__ . '/../app/controllers/SectionController.php';
 require_once __DIR__ . '/../app/helpers/auth.php';
 require_once __DIR__ . '/../app/helpers/title.php';
@@ -36,6 +37,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'delete-group':
             GroupController::deleteGroup();
             break;
+
+        case 'edit-group':
+            $groupId = getGroupId();
+            GroupController::editGroup($groupId);
+            break;
+
+        case 'add-user':
+            $groupId = getGroupId();
+            GroupController::addUser($groupId);
+            break;
+
+        case 'edit-group-users':
+            $groupId = getGroupId();
+            GroupController::editGroupUsers($groupId);
+            break;
+
         case 'add-section':
             $groupId = getGroupId();
             SectionController::createSection($groupId);

@@ -6,7 +6,8 @@ class GrupoUsuario
 {
     public static function addUser(
         $userId,
-        $grupoId
+        $grupoId,
+        $rol
     ) {
         $conexion = conexion();
 
@@ -19,7 +20,7 @@ class GrupoUsuario
             VALUES (
                 :user_id,
                 :grupo_id,
-                'owner'
+                :rol
             )
         ";
 
@@ -27,7 +28,8 @@ class GrupoUsuario
 
         return $stmt->execute([
             ':user_id' => $userId,
-            ':grupo_id' => $grupoId
+            ':grupo_id' => $grupoId,
+            ':rol' => $rol
         ]);
     }
 
@@ -54,7 +56,7 @@ class GrupoUsuario
         return $stmt->fetchAll();
     }
 
-    public static function findUserRol(int $userId, int $groupId)
+    public static function getUserRol(int $userId, int $groupId)
     {
         $conexion = conexion();
 
@@ -68,5 +70,42 @@ class GrupoUsuario
         ]);
 
         return $stmt->fetchColumn();
+    }
+
+    public static function getUsers(int $groupId)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT user_id, username, email, rol, baneado
+            FROM grupo_usuario
+            INNER JOIN users ON grupo_usuario.user_id = users.id
+            WHERE grupo_id = :currentGroupId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentGroupId' => $groupId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+    
+    public static function editGroupUsers(
+        int $groupId,
+        int $userId,
+        string $rol
+    )
+    {
+        $conexion = conexion();
+
+        $sql = "UPDATE grupo_usuario SET rol = :rol WHERE user_id = :userId AND grupo_id = :currentGroupId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentGroupId' => $groupId,
+            ':userId' => $userId,
+            ':rol' => $rol
+        ]);
     }
 }
