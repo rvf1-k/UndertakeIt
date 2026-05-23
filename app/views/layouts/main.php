@@ -28,6 +28,18 @@
         case 'dashboard':
             $view = 'dashboard.php';
             break;
+        
+        case 'group':
+            $view = 'grupos.php';
+            break;
+        
+        case 'edit-group':
+            $view = 'edit-grupo.php';
+            break;
+        
+        case 'edit-section':
+            $view = 'edit-section.php';
+            break;
 
         case 'calendario':
             $view = 'task/calendar.php';

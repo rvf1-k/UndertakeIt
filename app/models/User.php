@@ -57,4 +57,39 @@ class User
 
         return $stmt->fetch();
     }
+
+    public static function getIdUser(string $email)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT id
+        FROM users
+        WHERE email = :email
+        LIMIT 1
+    ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':email' => $email
+        ]);
+
+        return $stmt->fetchColumn();
+    }
+    
+    public static function existUser(string $email)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT 1 FROM users WHERE email = :email LIMIT 1";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':email' => $email
+        ]);
+
+        return (bool) $stmt->fetchColumn();
+    }
 }

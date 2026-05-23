@@ -50,10 +50,9 @@ ALTER TABLE `grupo_usuario`
 -- =========================
 CREATE TABLE `seccion` (
   `id` serial PRIMARY KEY,
-  `titulo` varchar(255) NOT NULL,
+  `titulo` varchar(255) NOT NULL DEFAULT "Default",
   `descripcion` varchar(255),
   `grupo_id` bigint unsigned NOT NULL,
-  `is_default` boolean NOT NULL DEFAULT false,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
