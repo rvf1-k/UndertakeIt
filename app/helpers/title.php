@@ -48,3 +48,10 @@ function getGroupId(): int
         ? (int) $_GET['id']
         : null;
 }
+
+function getSectionId(): int
+{
+    return isset($_GET['id-section'])
+        ? (int) $_GET['id-section']
+        : null;
+}

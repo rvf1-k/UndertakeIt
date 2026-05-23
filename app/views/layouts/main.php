@@ -36,6 +36,10 @@
         case 'edit-group':
             $view = 'edit-grupo.php';
             break;
+        
+        case 'edit-section':
+            $view = 'edit-section.php';
+            break;
 
         case 'calendario':
             $view = 'task/calendar.php';
