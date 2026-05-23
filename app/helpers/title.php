@@ -17,6 +17,8 @@ function getTitle(string $page): String
             break;
 
         case 'group':
+        case 'edit-group':
+        case 'edit-section':
             $groupId = getGroupId();
             if (GroupController::watchGroup($groupId)) {
                 $title = GroupController::GroupTitle($groupId);
