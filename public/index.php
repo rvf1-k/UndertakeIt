@@ -72,6 +72,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Layout
-include_once __DIR__ . '/../app/views/layouts/header.php';
-include_once __DIR__ . '/../app/views/layouts/main.php';
-include_once __DIR__ . '/../app/views/layouts/footer.php';
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+//TODO: Poner bien las rutas de public
+switch ($path) {
+    case '/undertakeit/public/tasks/users-by-group':
+        $groupId = getGroupId();
+
+        $users = GroupController::getUsers($groupId);
+
+        header('Content-Type: application/json');
+
+        echo json_encode($users);
+
+        exit;
+
+    default:
+        include_once __DIR__ . '/../app/views/layouts/header.php';
+        include_once __DIR__ . '/../app/views/layouts/main.php';
+        include_once __DIR__ . '/../app/views/layouts/footer.php';
+        break;
+}
