@@ -37,7 +37,7 @@ class GrupoUsuario
     {
         $conexion = conexion();
 
-        $sql = "SELECT grupo_id, grupo.titulo\n"
+        $sql = "SELECT grupo_id, grupo.titulo, grupo.is_default\n"
 
             . "FROM grupo_usuario\n"
 

@@ -31,11 +31,17 @@ class User
 
         $stmt = $conexion->prepare($sql);
 
-        return $stmt->execute([
+        $created = $stmt->execute([
             ':username' => $username,
             ':email' => $email,
             ':password_hash' => $passwordHash
         ]);
+
+        if (!$created) {
+            return false;
+        }
+
+        return $conexion->lastInsertId();
     }
 
     public static function findByEmail($email)
@@ -77,7 +83,7 @@ class User
 
         return $stmt->fetchColumn();
     }
-    
+
     public static function existUser(string $email)
     {
         $conexion = conexion();

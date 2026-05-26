@@ -71,6 +71,11 @@ class GroupController
         echo '<ul>';
 
         foreach ($groups as $group) {
+
+            if ($group['is_default']) {
+                continue;
+            }
+
             echo "
 <li class='menu-container relative'>
         <div class='flex items-center justify-between'>
