@@ -291,4 +291,19 @@ class GroupController
             header("Location: ?page=edit-group&id={$group_id}");
         }
     }
+
+    public static function getByGroupAllSections()
+    {
+        $groups = GrupoUsuario::findGroupsByUser();
+
+        $groupsAndSections = [];
+
+        foreach ($groups as $i => $group) {
+            $sections = SectionController::getSectionsInGroup($group['grupo_id']);
+            $groupsAndSections[] = $group;
+            $groupsAndSections[$i][] = $sections;
+        }
+
+        return $groupsAndSections;
+    }
 }

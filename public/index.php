@@ -4,6 +4,7 @@ require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/GroupController.php';
 require_once __DIR__ . '/../app/controllers/UserController.php';
 require_once __DIR__ . '/../app/controllers/SectionController.php';
+require_once __DIR__ . '/../app/controllers/TaskController.php';
 require_once __DIR__ . '/../app/helpers/auth.php';
 require_once __DIR__ . '/../app/helpers/title.php';
 require_once __DIR__ . '/../app/helpers/url_helper.php';
@@ -67,6 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'delete-section':
             SectionController::deleteSection();
+            break;
+        
+        case 'add-task':
+            TaskController::createTask();
             break;
     }
 }

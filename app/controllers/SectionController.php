@@ -6,7 +6,7 @@ class SectionController
 {
     public static function SectionList(int $groupId)
     {
-        $sections = Section::findSectionsByGroups($groupId);
+        $sections = self::getSectionsInGroup($groupId);
 
         echo '<div class="flex gap-8 overflow-x-auto p-8 bg-gray-100 min-h-screen">';
 
@@ -200,5 +200,9 @@ class SectionController
         );
 
         header("Location: ?page=group&id={$groupId}");
+    }
+
+    public static function getSectionsInGroup(int $groupId) {
+        return Section::findSectionsByGroups($groupId);        
     }
 }
