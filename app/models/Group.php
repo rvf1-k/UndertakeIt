@@ -29,6 +29,43 @@ class Grupo
         return $conexion->lastInsertId();
     }
 
+    public static function createDefault()
+    {
+        $conexion = conexion();
+
+        $sql = "
+            INSERT INTO grupo (
+                titulo,
+                is_default
+            )
+            VALUES (
+                'Default',
+                1
+            )
+        ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute();
+
+        return $conexion->lastInsertId();
+    }
+
+    public static function getDefaultGroupId(int $id)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT * FROM `grupo` WHERE id = :currentGroupId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentGroupId' => $id
+        ]);
+
+        return $stmt->fetch();
+    }
+
     public static function getGroups(int $id)
     {
         $conexion = conexion();
@@ -43,7 +80,7 @@ class Grupo
 
         return $stmt->fetch();
     }
-    
+
     public static function delete(int $id)
     {
         $conexion = conexion();
@@ -56,7 +93,7 @@ class Grupo
             ':currentGroupId' => $id
         ]);
     }
-    
+
     public static function edit(int $id, string $titulo, string $descripcion)
     {
         $conexion = conexion();
