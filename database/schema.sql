@@ -16,6 +16,7 @@ CREATE TABLE `grupo` (
   `id` serial PRIMARY KEY,
   `titulo` varchar(255) NOT NULL,
   `descripcion` varchar(255),
+  `is_default` boolean NOT NULL DEFAULT false,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
