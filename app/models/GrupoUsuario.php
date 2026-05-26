@@ -5,9 +5,9 @@ require_once __DIR__ . '/../../config/database.php';
 class GrupoUsuario
 {
     public static function addUser(
-        $userId,
-        $grupoId,
-        $rol
+        int $userId,
+        int $grupoId,
+        string $rol
     ) {
         $conexion = conexion();
 

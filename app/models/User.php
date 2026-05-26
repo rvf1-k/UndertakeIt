@@ -5,9 +5,9 @@ require_once __DIR__ . '/../../config/database.php';
 class User
 {
     public static function create(
-        $username,
-        $email,
-        $password
+        string $username,
+        string $email,
+        string $password
     ) {
         $conexion = conexion();
 
@@ -44,7 +44,7 @@ class User
         return $conexion->lastInsertId();
     }
 
-    public static function findByEmail($email)
+    public static function findByEmail(string $email)
     {
         $conexion = conexion();
 
