@@ -19,18 +19,25 @@ class AuthController
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
 
-        $created = User::create(
+        $userId = User::create(
             $usuario,
             $email,
             $password
         );
 
-        if ($created) {
+        if ($userId) {
+
+            $groupDefault = Grupo::createDefault();
+            Section::createFirst($groupDefault);
+            GrupoUsuario::addUser(
+                $userId,
+                $groupDefault,
+                'owner'
+            );
 
             header("Location: ?page=login");
             exit;
         } else {
-
             echo "Error";
         }
     }
