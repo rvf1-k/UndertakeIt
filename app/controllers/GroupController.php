@@ -28,6 +28,7 @@ class GroupController
         //TODO: debug        
         if (!$lastId) {
             echo "Error creando el grupo";
+            return;
         } else {
             $userId = currentUserId();
 
@@ -39,8 +40,12 @@ class GroupController
 
             if (!$groupCreated) {
                 echo "Error haciendo la relación";
+                return;
             }
         }
+
+        echo redirect();
+        exit();
     }
 
     public static function deleteGroup()
@@ -58,6 +63,8 @@ class GroupController
             Grupo::delete(
                 $group_id
             );
+            echo redirect();
+            exit();
         } else {
             echo "No tienes permiso para borrar este grupo";
             return;
@@ -229,7 +236,8 @@ class GroupController
             $descripcion
         );
 
-        header("Location: ?page=edit-group&id={$group_id}");
+        echo redirect();
+        exit();
     }
 
     public static function addUser(int $group_id)
@@ -265,7 +273,8 @@ class GroupController
             $role
         );
 
-        header("Location: ?page=edit-group&id={$group_id}");
+        echo redirect();
+        exit();
     }
 
     public static function editGroupUsers(int $group_id)
@@ -288,7 +297,8 @@ class GroupController
 
             GrupoUsuario::editGroupUsers($group_id, $userId, $nuevoRol);
 
-            header("Location: ?page=edit-group&id={$group_id}");
+            echo redirect();
+            exit();
         }
     }
 
