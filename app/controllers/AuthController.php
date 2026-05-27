@@ -35,8 +35,8 @@ class AuthController
                 'owner'
             );
 
-            header("Location: ?page=login");
-            exit;
+            echo redirectOther("page=login");
+            exit();
         } else {
             echo "Error";
         }
@@ -71,7 +71,7 @@ class AuthController
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
-        header("Location: ?page=home");
+        echo redirectHome();
         exit;
     }
 
@@ -96,7 +96,7 @@ class AuthController
 
         session_destroy();
 
-        header("Location: ?page=home");
+        echo redirectHome();
         exit();
     }
 }

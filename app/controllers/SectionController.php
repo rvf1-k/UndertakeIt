@@ -134,7 +134,11 @@ class SectionController
         //TODO: debug        
         if (!$lastId) {
             echo "Error creando el grupo";
+            return;
         }
+
+        echo redirect();
+        exit();
     }
 
     public static function deleteSection()
@@ -154,6 +158,8 @@ class SectionController
             Section::delete(
                 $sectionId
             );
+            echo redirect();
+            exit();
         } else {
             echo "No tienes permiso para borrar este grupo";
             return;
@@ -199,10 +205,12 @@ class SectionController
             $descripcion
         );
 
-        header("Location: ?page=group&id={$groupId}");
+        echo redirect();
+        exit();
     }
 
-    public static function getSectionsInGroup(int $groupId) {
-        return Section::findSectionsByGroups($groupId);        
+    public static function getSectionsInGroup(int $groupId)
+    {
+        return Section::findSectionsByGroups($groupId);
     }
 }
