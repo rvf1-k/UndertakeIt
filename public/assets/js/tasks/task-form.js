@@ -1,7 +1,7 @@
 import { post } from "../api/http.js";
 
-groupSelect.addEventListener("change", async () => {
-  const selectedOption = groupSelect.selectedOptions[0];
+sectionSelect.addEventListener("change", async () => {
+  const selectedOption = sectionSelect.selectedOptions[0];
   const groupId = selectedOption.dataset.groupId;
 
   const response = await fetch("tasks/users-by-group?id=" + groupId);
@@ -15,8 +15,11 @@ groupSelect.addEventListener("change", async () => {
     return;
   }
 
+  console.log(users);
+  
+
   if (users.length == 1) {
-    userSelect.innerHTML = `<option selected value="${users[0].id}">
+    userSelect.innerHTML = `<option selected value="${users[0].user_id}">
                 ${users[0].username}
             </option>`;
     return;
@@ -26,7 +29,7 @@ groupSelect.addEventListener("change", async () => {
     '<option disabled selected value="">Selecciona usuarios</option>';
   users.forEach((user) => {
     userSelect.innerHTML += `
-            <option value="${user.id}">
+            <option value="${user.user_id}">
                 ${user.username}
             </option>
         `;
