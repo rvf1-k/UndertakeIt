@@ -1,9 +1,17 @@
 <div id="navbar">
     <section>
         <ul>
-            <li><button>Hoy</button></li>
-            <li><button>Próximos 7 días</button></li>
-            <li><button>Mis tareas</button></li>
+            <li>
+                <a href="?page=today">Hoy</a>
+            </li>
+
+            <li>
+                <a href="?page=next-7-days">Próximos 7 días</a>
+            </li>
+
+            <li>
+                <a href="?page=my-tasks">Mis tareas</a>
+            </li>
         </ul>
     </section>
     <!-- //TODO: Temporal -->

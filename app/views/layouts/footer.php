@@ -7,7 +7,7 @@
 <nav>
     <ul>
         <li>
-            <a href="?page=dashboard"><i class="fa-solid fa-clipboard-list"></i></a>
+            <a href="?page=today"><i class="fa-solid fa-clipboard-list"></i></a>
         </li>
         <li>
             <a href="?page=calendario"><i class="fa-solid fa-calendar-days"></i></a>
