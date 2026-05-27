@@ -11,12 +11,11 @@ sectionSelect.addEventListener("change", async () => {
   console.log(users);
   if (users.length == 0) {
     userSelect.innerHTML =
-      '<option disabled selected >Sin grupo asignado</option>';
+      "<option disabled selected >Sin grupo asignado</option>";
     return;
   }
 
   console.log(users);
-  
 
   if (users.length == 1) {
     userSelect.innerHTML = `<option selected value="${users[0].user_id}">

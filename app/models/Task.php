@@ -50,4 +50,121 @@ class Task
 
         return $conexion->lastInsertId();
     }
+
+    public static function getTask(int $userId)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT * FROM tarea WHERE assigned_user_id = :currentUserId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
+    public static function getToDoTasks(int $userId)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT * 
+        FROM tarea 
+        WHERE assigned_user_id = :currentUserId
+        AND fecha_inicio >= NOW()
+        ORDER BY fecha_inicio ASC;
+    ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+    public static function getExpiredTasks(int $userId)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT * 
+        FROM tarea 
+        WHERE assigned_user_id = :currentUserId
+        AND fecha_inicio < NOW()
+        ORDER BY fecha_inicio DESC;
+    ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+    public static function getTodayToDoTasks(int $userId)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT * 
+        FROM tarea 
+        WHERE assigned_user_id = :currentUserId
+        AND DATE(fecha_inicio) = CURDATE()
+        ORDER BY fecha_inicio ASC;
+    ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+    public static function getTodayExpiredTasks(int $userId)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT * 
+        FROM tarea 
+        WHERE assigned_user_id = :currentUserId
+        AND DATE(fecha_inicio) = CURDATE()
+        AND fecha_inicio < NOW()
+        ORDER BY fecha_inicio ASC;
+    ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+    public static function getNext7ToDoTasks(int $userId)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT * 
+        FROM tarea 
+        WHERE assigned_user_id = :currentUserId
+        AND fecha_inicio BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY)
+        ORDER BY fecha_inicio ASC;
+    ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId
+        ]);
+
+        return $stmt->fetchAll();
+    }
 }

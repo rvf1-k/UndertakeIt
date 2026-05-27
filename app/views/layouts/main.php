@@ -25,18 +25,26 @@
             $view = 'login.php';
             break;
 
-        case 'dashboard':
-            $view = 'dashboard.php';
+        case 'today':
+            $view = 'today.php';
             break;
-        
+
+        case 'next-7-days':
+            $view = 'next-7-days.php';
+            break;
+
+        case 'my-tasks':
+            $view = 'my-tasks.php';
+            break;
+
         case 'group':
             $view = 'grupos.php';
             break;
-        
+
         case 'edit-group':
             $view = 'edit-grupo.php';
             break;
-        
+
         case 'edit-section':
             $view = 'edit-section.php';
             break;
@@ -50,7 +58,7 @@
             break;
 
         default:
-            $view = 'dashboard.php';
+            $view = 'today.php';
     }
 
     include_once __DIR__ . '/../pages/' . $view;
