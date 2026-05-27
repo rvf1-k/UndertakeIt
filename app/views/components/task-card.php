@@ -141,7 +141,7 @@
 
             <!-- Sección -->
             <div class="form-section flex flex-col">
-                <label for="groupSelect">
+                <label for="sectionSelect">
                     Grupo
                 </label>
 
@@ -169,7 +169,7 @@
                         </option>
                         <?php
                         foreach ($group[0] as $t => $section): ?>
-                            <option value="<?= $group['grupo_id'] ?>"
+                            <option value="<?= $section['id'] ?>"
                             data-group-id="<?= $group['grupo_id'] ?>">
                                 — <?= htmlspecialchars($section['titulo']) ?>
                             </option>
@@ -219,10 +219,9 @@
                 <select
                     id="userSelect"
                     name="assigned_user_id"
-                    class="border rounded-lg p-2"
-                    multiple>
+                    class="border rounded-lg p-2">
 
-                    <option selected value="">
+                    <option selected value="undefined">
                         Sin grupo asignado
                     </option>
                 </select>
