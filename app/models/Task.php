@@ -183,6 +183,73 @@ class Task
 
         return $stmt->fetchAll();
     }
+
+    public static function getSectionToDoTasks(int $userId, int $sectionId)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT * 
+        FROM tarea 
+        WHERE assigned_user_id = :currentUserId
+        AND seccion_id = :currentSectionId
+        AND fecha_inicio >= NOW()
+        ORDER BY fecha_inicio ASC;
+    ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId,
+            ':currentSectionId' => $sectionId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
+    public static function getSectionExpiredTasks(int $userId, int $sectionId)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT * 
+        FROM tarea 
+        WHERE assigned_user_id = :currentUserId
+        AND seccion_id = :currentSectionId
+        AND fecha_inicio < NOW()
+        ORDER BY fecha_inicio ASC;
+    ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId,
+            ':currentSectionId' => $sectionId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
+    public static function getGroupTasks(int $taskId)
+    {
+        $conexion = conexion();
+
+        $sql = "
+        SELECT seccion.grupo_id 
+        FROM tarea INNER 
+        JOIN seccion ON tarea.seccion_id = seccion.id
+        WHERE tarea.id = :taskId
+        ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':taskId' => $taskId
+        ]);
+
+        return $stmt->fetchColumn();
+    }
+
     public static function delete(int $id)
     {
         $conexion = conexion();

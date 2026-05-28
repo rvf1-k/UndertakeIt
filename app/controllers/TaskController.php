@@ -60,7 +60,6 @@ class TaskController
             echo "Error creando la tarea";
             return;
         }
-        
 
         echo redirect();
         exit();
@@ -141,6 +140,21 @@ class TaskController
 
         return Task::getTodayExpiredTasks($userId);
     }
+
+    public static function getSectionExpiredTasks(int $sectionId)
+    {
+        $userId = currentUserId();
+
+        return Task::getSectionExpiredTasks($userId, $sectionId);
+    }
+    
+    public static function getSectionToDoTasks(int $sectionId)
+    {
+        $userId = currentUserId();
+
+        return Task::getSectionToDoTasks($userId, $sectionId);
+    }
+
     public static function printTasks(array $tasks)
     {
         foreach ($tasks as $task): ?>
