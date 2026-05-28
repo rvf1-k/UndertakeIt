@@ -117,7 +117,7 @@ ALTER TABLE `tarea`
 CREATE TABLE `tarea_log` (
   `id` serial PRIMARY KEY,
   `tarea_id` bigint unsigned NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` timestamp NOT NULL,
   `completada` boolean NOT NULL DEFAULT true,
   `completed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `completed_by_user_id` bigint unsigned NULL,
