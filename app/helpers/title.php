@@ -15,7 +15,7 @@ function getTitle(string $page): String
         case 'group':
         case 'edit-group':
         case 'edit-section':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             if (GroupController::watchGroup($groupId)) {
                 $title = GroupController::GroupTitle($groupId);
             } else {
@@ -50,7 +50,7 @@ function getTitle(string $page): String
     return $title;
 }
 
-function getGroupId(): int
+function getPathId(): int
 {
     return isset($_GET['id'])
         ? (int) $_GET['id']

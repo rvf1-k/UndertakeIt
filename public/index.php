@@ -41,28 +41,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'edit-group':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             GroupController::editGroup($groupId);
             break;
 
         case 'add-user':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             GroupController::addUser($groupId);
             break;
 
         case 'edit-group-users':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             GroupController::editGroupUsers($groupId);
             break;
 
         case 'add-section':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             SectionController::createSection($groupId);
             break;
 
         case 'edit-section':
             $sectionId = getSectionId();
-            $groupId = getGroupId();
+            $groupId = getPathId();
             SectionController::editSection($sectionId, $groupId);
             break;
 
@@ -85,7 +85,7 @@ $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 //TODO: Poner bien las rutas de public
 switch ($path) {
     case '/undertakeit/public/tasks/users-by-group':
-        $groupId = getGroupId();
+        $groupId = getPathId();
 
         $users = GroupController::getUsers($groupId);
 
