@@ -141,7 +141,7 @@ class Section
             ':currentSectionId' => $sectionId
         ]);
 
-        return (bool) $stmt->fetchColumn();
+        return $stmt->fetchColumn();
     }
 
     public static function edit(int $id, string $titulo, string $descripcion)
