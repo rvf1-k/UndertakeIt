@@ -66,6 +66,21 @@ class Task
         return $stmt->fetchAll();
     }
 
+    public static function getTaskGroup(int $userId)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT * FROM tarea WHERE assigned_user_id = :currentUserId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
     public static function getToDoTasks(int $userId)
     {
         $conexion = conexion();

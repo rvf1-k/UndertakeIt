@@ -36,7 +36,7 @@ class TaskController
             $_POST['sectionSelect'] !== 'none'
         )
             ? (int) $_POST['sectionSelect']
-            : Grupo::getDefaultGroupId(currentUserId())['id'];
+            : Grupo::getDefaultGroupId(currentUserId());
 
         $assignedUserId = (
             isset($_POST['assigned_user_id']) &&
@@ -61,6 +61,7 @@ class TaskController
             return;
         }
         
+
         echo redirect();
         exit();
     }
@@ -139,5 +140,11 @@ class TaskController
         $userId = currentUserId();
 
         return Task::getTodayExpiredTasks($userId);
+    }
+    public static function getGroupTasks(int $taskId)
+    {
+        $groupId = Task::getGroupTasks($taskId);
+
+        return $groupId;
     }
 }
