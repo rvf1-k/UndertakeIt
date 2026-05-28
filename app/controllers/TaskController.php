@@ -23,10 +23,12 @@ class TaskController
 
         $fechaInicio = $_POST['fecha_inicio'];
 
+        //TODO
         $fechaFin = !empty($_POST['fecha_fin'])
             ? $_POST['fecha_fin']
             : null;
 
+        //TODO
         $recurrenceRule = !empty($_POST['recurrence_rule'])
             ? $_POST['recurrence_rule']
             : null;
@@ -41,9 +43,11 @@ class TaskController
         $assignedUserId = (
             isset($_POST['assigned_user_id']) &&
             $_POST['assigned_user_id'] !== 'undefined'
-        )
-            ? (int) $_POST['assigned_user_id']
-            : currentUserId();
+        ) ? (
+            ($_POST['assigned_user_id'] !== 'self') ?
+
+            (int) $_POST['assigned_user_id'] : currentUserId()
+        ) : null;
 
 
         $lastId = Task::create(
@@ -103,7 +107,7 @@ class TaskController
     {
         $userId = currentUserId();
 
-        return Task::getTask($userId);
+        return Task::getAllTasks($userId);
     }
 
     public static function getToDoTasks()
@@ -147,7 +151,7 @@ class TaskController
 
         return Task::getSectionExpiredTasks($userId, $sectionId);
     }
-    
+
     public static function getSectionToDoTasks(int $sectionId)
     {
         $userId = currentUserId();

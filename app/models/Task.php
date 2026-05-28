@@ -51,11 +51,17 @@ class Task
         return $conexion->lastInsertId();
     }
 
-    public static function getTask(int $userId)
+    public static function getAllTasks(int $userId)
     {
         $conexion = conexion();
 
-        $sql = "SELECT * FROM tarea WHERE assigned_user_id = :currentUserId;";
+        $sql = "SELECT * 
+        FROM tarea 
+        INNER JOIN seccion ON tarea.seccion_id = seccion.id
+        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
+        WHERE grupo_usuario.user_id = :currentUserId
+        ORDER BY tarea.fecha_inicio ASC";
 
         $stmt = $conexion->prepare($sql);
 
@@ -66,16 +72,18 @@ class Task
         return $stmt->fetchAll();
     }
 
-    public static function getTaskGroup(int $userId)
+    //TODO?: 
+    public static function getTask(int $userId, int $taskId)
     {
         $conexion = conexion();
 
-        $sql = "SELECT * FROM tarea WHERE assigned_user_id = :currentUserId;";
+        $sql = "SELECT * FROM tarea WHERE assigned_user_id = :currentUserId AND tarea.id = :currenteTareaId;";
 
         $stmt = $conexion->prepare($sql);
 
         $stmt->execute([
-            ':currentUserId' => $userId
+            ':currentUserId' => $userId,
+            ':currenteTareaId' => $taskId
         ]);
 
         return $stmt->fetchAll();
@@ -85,13 +93,15 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = "
-        SELECT * 
+        $sql = 
+        "SELECT * 
         FROM tarea 
-        WHERE assigned_user_id = :currentUserId
+        INNER JOIN seccion ON tarea.seccion_id = seccion.id
+        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
+        WHERE grupo_usuario.user_id = :currentUserId
         AND fecha_inicio >= NOW()
-        ORDER BY fecha_inicio ASC;
-    ";
+        ORDER BY tarea.fecha_inicio ASC";
 
         $stmt = $conexion->prepare($sql);
 
@@ -105,10 +115,13 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = "
-        SELECT * 
+        $sql = 
+        "SELECT * 
         FROM tarea 
-        WHERE assigned_user_id = :currentUserId
+        INNER JOIN seccion ON tarea.seccion_id = seccion.id
+        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
+        WHERE grupo_usuario.user_id = :currentUserId
         AND fecha_inicio < NOW()
         ORDER BY fecha_inicio DESC;
     ";
@@ -125,10 +138,13 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = "
-        SELECT * 
+        $sql = 
+        "SELECT * 
         FROM tarea 
-        WHERE assigned_user_id = :currentUserId
+        INNER JOIN seccion ON tarea.seccion_id = seccion.id
+        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
+        WHERE grupo_usuario.user_id = :currentUserId
         AND DATE(fecha_inicio) = CURDATE()
         AND fecha_inicio >= NOW()
         ORDER BY fecha_inicio ASC;
@@ -146,10 +162,13 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = "
-        SELECT * 
+        $sql = 
+        "SELECT * 
         FROM tarea 
-        WHERE assigned_user_id = :currentUserId
+        INNER JOIN seccion ON tarea.seccion_id = seccion.id
+        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
+        WHERE grupo_usuario.user_id = :currentUserId
         AND DATE(fecha_inicio) = CURDATE()
         AND fecha_inicio < NOW()
         ORDER BY fecha_inicio ASC;
@@ -167,10 +186,13 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = "
-        SELECT * 
+        $sql = 
+        "SELECT * 
         FROM tarea 
-        WHERE assigned_user_id = :currentUserId
+        INNER JOIN seccion ON tarea.seccion_id = seccion.id
+        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
+        WHERE grupo_usuario.user_id = :currentUserId
         AND fecha_inicio BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY)
         ORDER BY fecha_inicio ASC;
     ";
@@ -188,10 +210,13 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = "
-        SELECT * 
+        $sql = 
+        "SELECT * 
         FROM tarea 
-        WHERE assigned_user_id = :currentUserId
+        INNER JOIN seccion ON tarea.seccion_id = seccion.id
+        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
+        WHERE grupo_usuario.user_id = :currentUserId
         AND seccion_id = :currentSectionId
         AND fecha_inicio >= NOW()
         ORDER BY fecha_inicio ASC;
@@ -211,10 +236,13 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = "
-        SELECT * 
+        $sql = 
+        "SELECT * 
         FROM tarea 
-        WHERE assigned_user_id = :currentUserId
+        INNER JOIN seccion ON tarea.seccion_id = seccion.id
+        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
+        WHERE grupo_usuario.user_id = :currentUserId
         AND seccion_id = :currentSectionId
         AND fecha_inicio < NOW()
         ORDER BY fecha_inicio ASC;
