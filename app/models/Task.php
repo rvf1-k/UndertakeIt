@@ -130,6 +130,7 @@ class Task
         FROM tarea 
         WHERE assigned_user_id = :currentUserId
         AND DATE(fecha_inicio) = CURDATE()
+        AND fecha_inicio >= NOW()
         ORDER BY fecha_inicio ASC;
     ";
 
