@@ -7,13 +7,7 @@
     <div class="mt-4 flex flex-col gap-2">
         <?php
         $tasks = TaskController::getExpiredTasks();
-        foreach ($tasks as $i => $task): ?>
-            <div class="flex items-center gap-2 px-2 relative">
-                <input type="checkbox" />
-                <span><?= $task['titulo'] ?></span>
-                <span class="ml-auto text-red-500"><?= TaskController::formatDate($task['fecha_inicio']); ?></span>
-            </div>
-        <?php endforeach;
+        TaskController::printExpiredTasks($tasks);
         ?>
     </div>
 </section>
@@ -26,13 +20,7 @@
     <div class="mt-4 flex flex-col gap-2">
         <?php
         $tasks = TaskController::getToDoTasks();
-        foreach ($tasks as $i => $task): ?>
-            <div class="flex items-center gap-2 px-2 relative">
-                <input type="checkbox" />
-                <span><?= $task['titulo'] ?></span>
-                <span class="ml-auto"><?= TaskController::formatDate($task['fecha_inicio']); ?></span>
-            </div>
-        <?php endforeach;
+        TaskController::printTasks($tasks);
         ?>
     </div>
 </section>
