@@ -42,10 +42,8 @@
             </div>
 
             <?php
-            /***
-             * 
-             * Para futuras actualizaciones
-             * 
+            //TODO: Implementar habitos
+            /*
             <!-- Tipo -->
             <div class="form-group flex flex-col">
                 <label for="tipo">
@@ -100,6 +98,9 @@
 
             </div>
 
+            <?php
+            //TODO: reglas de recurrencia
+            /*
             <!-- Recurrencia -->
             <div class="form-group flex flex-col">
                 <label for="recurrence_rule">
@@ -137,8 +138,8 @@
                         Personalizado - In work
                     </option>
                 </select>
-            </div>
-
+            </div>*/
+            ?>
             <!-- Sección -->
             <div class="form-section flex flex-col">
                 <label for="sectionSelect">
@@ -170,7 +171,7 @@
                         <?php
                         foreach ($group[0] as $t => $section): ?>
                             <option value="<?= $section['id'] ?>"
-                            data-group-id="<?= $group['grupo_id'] ?>">
+                                data-group-id="<?= $group['grupo_id'] ?>">
                                 — <?= htmlspecialchars($section['titulo']) ?>
                             </option>
 
@@ -182,8 +183,9 @@
 
                 </select>
             </div>
-            <?php /*
-            
+            <?php
+            //TODO: Encadenar tareas
+            /*
             <!-- Parent task -->
             <div class="form-group flex flex-col">
                 <label for="parent_id">
@@ -221,7 +223,7 @@
                     name="assigned_user_id"
                     class="border rounded-lg p-2">
 
-                    <option selected value="undefined">
+                    <option selected value="self">
                         Sin grupo asignado
                     </option>
                 </select>

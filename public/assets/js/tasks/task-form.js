@@ -11,7 +11,7 @@ sectionSelect.addEventListener("change", async () => {
   console.log(users);
   if (users.length == 0) {
     userSelect.innerHTML =
-      "<option disabled selected >Sin grupo asignado</option>";
+      "<option disabled selected value='self'>Sin grupo asignado</option>";
     return;
   }
 
