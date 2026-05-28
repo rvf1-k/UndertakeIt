@@ -183,4 +183,16 @@ class Task
 
         return $stmt->fetchAll();
     }
+    public static function delete(int $id)
+    {
+        $conexion = conexion();
+
+        $sql = "DELETE FROM tarea WHERE tarea.id = :tareaId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':tareaId' => $id
+        ]);
+    }
 }
