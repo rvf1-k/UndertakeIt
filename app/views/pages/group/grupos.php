@@ -6,4 +6,4 @@
     }
     ?>
 </section>
-<?php include_once __DIR__ . '/../components/section-form.php'; ?>
+<?php include_once __DIR__ . '/../../components/section-form.php'; ?>
