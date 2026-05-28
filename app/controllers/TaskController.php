@@ -69,7 +69,7 @@ class TaskController
         exit();
     }
 
-    public static function formatDate($date)
+    public static function formatDate(string $date)
     {
         $dateTime = new DateTime($date);
         $now = new DateTime();
@@ -108,6 +108,11 @@ class TaskController
         $userId = currentUserId();
 
         return Task::getAllTasks($userId);
+    }
+
+    public static function getTask(int $taskId)
+    {
+        return Task::getTask($taskId);
     }
 
     public static function getToDoTasks()
@@ -163,8 +168,8 @@ class TaskController
     {
         foreach ($tasks as $task): ?>
             <div class="flex items-center gap-2 px-2 relative">
-                <input type="checkbox" />
-                <span><?= $task['titulo'] ?></span>
+                <input type="checkbox" <?php echo (TaskLogController::isCompleted($task['id'],$task['fecha_inicio']) ? "checked" : "");   ?> class="task-checkbox" data-task-id="<?= $task['id'] ?>" />
+                <span><a href="?page=group&id=<?php echo SectionController::getGroup($task['seccion_id']) ?>"><?= $task['titulo'] ?></a></span>
                 <span class="ml-auto"><?= TaskController::formatDate($task['fecha_inicio']); ?></span>
                 <form method="POST">
                     <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
@@ -173,6 +178,9 @@ class TaskController
                     </button>
                 </form>
             </div>
+            <div>
+                <p><?= $task['descripcion'] ?></p>
+            </div>
         <?php endforeach;
     }
 
@@ -180,8 +188,8 @@ class TaskController
     {
         foreach ($tasks as $task): ?>
             <div class="flex items-center gap-2 px-2 relative">
-                <input type="checkbox" />
-                <span><?= $task['titulo'] ?></span>
+                <input type="checkbox" class="task-checkbox" data-task-id="<?= $task['id'] ?>" />
+                <span><a href="?page=group&id=<?php echo SectionController::getGroup($task['seccion_id']) ?>"><?= $task['titulo'] ?></a></span>
                 <span class="ml-auto text-red-500"><?= TaskController::formatDate($task['fecha_inicio']); ?></span>
                 <form method="POST">
                     <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
@@ -189,6 +197,9 @@ class TaskController
                         <i class="fa-solid fa-trash" style="font-size:15px;"></i>
                     </button>
                 </form>
+            </div>
+            <div>
+                <p><?= $task['descripcion'] ?></p>
             </div>
 <?php endforeach;
     }

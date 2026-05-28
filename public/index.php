@@ -5,6 +5,7 @@ require_once __DIR__ . '/../app/controllers/GroupController.php';
 require_once __DIR__ . '/../app/controllers/UserController.php';
 require_once __DIR__ . '/../app/controllers/SectionController.php';
 require_once __DIR__ . '/../app/controllers/TaskController.php';
+require_once __DIR__ . '/../app/controllers/TaskLogController.php';
 require_once __DIR__ . '/../app/helpers/auth.php';
 require_once __DIR__ . '/../app/helpers/title.php';
 require_once __DIR__ . '/../app/helpers/url_helper.php';
@@ -94,6 +95,16 @@ switch ($path) {
         echo json_encode($users);
 
         exit;
+
+    case '/undertakeit/public/tasks/check':
+        $taskId = getPathId();
+        TaskLogController::checkTask($taskId);
+        exit;
+    case '/undertakeit/public/tasks/uncheck':
+        $taskId = getPathId();
+        TaskLogController::unCheckTask($taskId);
+        exit;
+
 
     default:
         include_once __DIR__ . '/../app/views/layouts/header.php';
