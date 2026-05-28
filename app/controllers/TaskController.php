@@ -141,6 +141,40 @@ class TaskController
 
         return Task::getTodayExpiredTasks($userId);
     }
+    public static function printTasks(array $tasks)
+    {
+        foreach ($tasks as $task): ?>
+            <div class="flex items-center gap-2 px-2 relative">
+                <input type="checkbox" />
+                <span><?= $task['titulo'] ?></span>
+                <span class="ml-auto"><?= TaskController::formatDate($task['fecha_inicio']); ?></span>
+                <form method="POST">
+                    <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                    <button type="submit" name="action" value="delete-task">
+                        <i class="fa-solid fa-trash" style="font-size:15px;"></i>
+                    </button>
+                </form>
+            </div>
+        <?php endforeach;
+    }
+
+    public static function printExpiredTasks(array $tasks)
+    {
+        foreach ($tasks as $task): ?>
+            <div class="flex items-center gap-2 px-2 relative">
+                <input type="checkbox" />
+                <span><?= $task['titulo'] ?></span>
+                <span class="ml-auto text-red-500"><?= TaskController::formatDate($task['fecha_inicio']); ?></span>
+                <form method="POST">
+                    <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                    <button type="submit" name="action" value="delete-task">
+                        <i class="fa-solid fa-trash" style="font-size:15px;"></i>
+                    </button>
+                </form>
+            </div>
+<?php endforeach;
+    }
+
     public static function getGroupTasks(int $taskId)
     {
         $groupId = Task::getGroupTasks($taskId);
