@@ -128,6 +128,21 @@ class Section
 
         return (bool) $stmt->fetchColumn();
     }
+    
+    public static function getGroup(int $sectionId)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT grupo_id FROM seccion WHERE id = :currentSectionId LIMIT 1";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentSectionId' => $sectionId
+        ]);
+
+        return (bool) $stmt->fetchColumn();
+    }
 
     public static function edit(int $id, string $titulo, string $descripcion)
     {

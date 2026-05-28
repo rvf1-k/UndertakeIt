@@ -51,19 +51,27 @@ class Grupo
         return $conexion->lastInsertId();
     }
 
-    public static function getDefaultGroupId(int $id)
+    public static function getDefaultGroupId(int $userId)
     {
         $conexion = conexion();
 
-        $sql = "SELECT * FROM `grupo` WHERE id = :currentGroupId;";
+        $sql = "SELECT seccion.id
+        FROM seccion
+        INNER JOIN grupo 
+            ON grupo.id = seccion.grupo_id
+        INNER JOIN grupo_usuario 
+            ON grupo_usuario.grupo_id = grupo.id
+        WHERE grupo_usuario.user_id = :currentUserId
+        AND grupo.is_default = true
+        LIMIT 1;";
 
         $stmt = $conexion->prepare($sql);
 
         $stmt->execute([
-            ':currentGroupId' => $id
+            ':currentUserId' => $userId
         ]);
 
-        return $stmt->fetch();
+        return $stmt->fetchColumn();
     }
 
     public static function getGroups(int $id)

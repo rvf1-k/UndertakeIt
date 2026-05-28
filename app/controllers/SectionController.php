@@ -213,4 +213,9 @@ class SectionController
     {
         return Section::findSectionsByGroups($groupId);
     }
+
+    public static function getGroup(int $sectionId)
+    {
+        return Section::getGroup($sectionId);
+    }
 }
