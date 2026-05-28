@@ -16,6 +16,7 @@ CREATE TABLE `grupo` (
   `id` serial PRIMARY KEY,
   `titulo` varchar(255) NOT NULL,
   `descripcion` varchar(255),
+  `is_default` boolean NOT NULL DEFAULT false,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -116,7 +117,7 @@ ALTER TABLE `tarea`
 CREATE TABLE `tarea_log` (
   `id` serial PRIMARY KEY,
   `tarea_id` bigint unsigned NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` timestamp NOT NULL,
   `completada` boolean NOT NULL DEFAULT true,
   `completed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `completed_by_user_id` bigint unsigned NULL,

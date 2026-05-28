@@ -19,18 +19,25 @@ class AuthController
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
 
-        $created = User::create(
+        $userId = User::create(
             $usuario,
             $email,
             $password
         );
 
-        if ($created) {
+        if ($userId) {
 
-            header("Location: ?page=login");
-            exit;
+            $groupDefault = Grupo::createDefault();
+            Section::createFirst($groupDefault);
+            GrupoUsuario::addUser(
+                $userId,
+                $groupDefault,
+                'owner'
+            );
+
+            echo redirectOther("page=login");
+            exit();
         } else {
-
             echo "Error";
         }
     }
@@ -64,7 +71,7 @@ class AuthController
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
-        header("Location: ?page=home");
+        echo redirectHome();
         exit;
     }
 
@@ -89,7 +96,7 @@ class AuthController
 
         session_destroy();
 
-        header("Location: ?page=home");
+        echo redirectHome();
         exit();
     }
 }

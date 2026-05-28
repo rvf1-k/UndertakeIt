@@ -29,6 +29,51 @@ class Grupo
         return $conexion->lastInsertId();
     }
 
+    public static function createDefault()
+    {
+        $conexion = conexion();
+
+        $sql = "
+            INSERT INTO grupo (
+                titulo,
+                is_default
+            )
+            VALUES (
+                'Default',
+                1
+            )
+        ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute();
+
+        return $conexion->lastInsertId();
+    }
+
+    public static function getDefaultGroupId(int $userId)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT seccion.id
+        FROM seccion
+        INNER JOIN grupo 
+            ON grupo.id = seccion.grupo_id
+        INNER JOIN grupo_usuario 
+            ON grupo_usuario.grupo_id = grupo.id
+        WHERE grupo_usuario.user_id = :currentUserId
+        AND grupo.is_default = true
+        LIMIT 1;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentUserId' => $userId
+        ]);
+
+        return $stmt->fetchColumn();
+    }
+
     public static function getGroups(int $id)
     {
         $conexion = conexion();
@@ -43,7 +88,7 @@ class Grupo
 
         return $stmt->fetch();
     }
-    
+
     public static function delete(int $id)
     {
         $conexion = conexion();
@@ -56,7 +101,7 @@ class Grupo
             ':currentGroupId' => $id
         ]);
     }
-    
+
     public static function edit(int $id, string $titulo, string $descripcion)
     {
         $conexion = conexion();

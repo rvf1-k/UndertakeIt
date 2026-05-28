@@ -5,9 +5,9 @@ require_once __DIR__ . '/../../config/database.php';
 class User
 {
     public static function create(
-        $username,
-        $email,
-        $password
+        string $username,
+        string $email,
+        string $password
     ) {
         $conexion = conexion();
 
@@ -31,14 +31,20 @@ class User
 
         $stmt = $conexion->prepare($sql);
 
-        return $stmt->execute([
+        $created = $stmt->execute([
             ':username' => $username,
             ':email' => $email,
             ':password_hash' => $passwordHash
         ]);
+
+        if (!$created) {
+            return false;
+        }
+
+        return $conexion->lastInsertId();
     }
 
-    public static function findByEmail($email)
+    public static function findByEmail(string $email)
     {
         $conexion = conexion();
 
@@ -77,7 +83,7 @@ class User
 
         return $stmt->fetchColumn();
     }
-    
+
     public static function existUser(string $email)
     {
         $conexion = conexion();

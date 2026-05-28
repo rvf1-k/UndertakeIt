@@ -1,6 +1,6 @@
 <section class="flex gap-8 p-8 overflow-x-auto bg-gray-100 min-h-screen">
     <?php
-    $groupId = getGroupId();
+    $groupId = getPathId();
     if (!GroupController::watchGroup($groupId)) {
         header("Location: ?page=home");
     } else {
@@ -47,25 +47,25 @@
         </div>
 
         <div id="add-user-box" class="hidden add-user-box">
+            <form method="POST">
+                <input
+                    type="email"
+                    name="new_user_email"
+                    placeholder="Correo del usuario">
 
-            <input
-                type="email"
-                name="new_user_email"
-                placeholder="Correo del usuario">
+                <select name="new_user_role">
+                    <option value="lector">Lector</option>
+                    <option value="editor">Editor</option>
+                    <option value="admin">Admin</option>
+                </select>
 
-            <select name="new_user_role">
-                <option value="lector">Lector</option>
-                <option value="editor">Editor</option>
-                <option value="admin">Admin</option>
-            </select>
-
-            <button
-                type="submit"
-                name="action"
-                value="add-user">
-                Añadir
-            </button>
-
+                <button
+                    type="submit"
+                    name="action"
+                    value="add-user">
+                    Añadir
+                </button>
+            </form>
         </div>
 
         <div class="users-list">
@@ -95,8 +95,7 @@
                             <select
                                 name="roles[<?= $user['user_id'] ?>]"
                                 onchange="this.form.submit()"
-                                <?php if ($user['rol'] == 'owner'): ?> disabled <?php endif; ?>
-                                >
+                                <?php if ($user['rol'] == 'owner'): ?> disabled <?php endif; ?>>
                                 <option
                                     value="lector"
                                     <?= $user['rol'] === 'lector' ? 'selected' : '' ?>>
@@ -116,15 +115,17 @@
                                 </option>
 
                                 <!-- No necesita value -->
-                                <option disabled 
+                                <option disabled
                                     <?= $user['rol'] === 'owner' ? 'selected' : '' ?>>
                                     Owner
                                 </option>
                             </select>
 
 
+                            <?php //TODO: Banear/desbanear usuarios
+                            ?>
                             <?php if ($user['rol'] !== 'owner'): ?>
-                                <?php if (!$user['baneado']): ?>
+                                <?php if ($user['baneado'] == 0): ?>
 
                                     <button
                                         type="submit"

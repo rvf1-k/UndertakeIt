@@ -5,9 +5,9 @@ require_once __DIR__ . '/../../config/database.php';
 class GrupoUsuario
 {
     public static function addUser(
-        $userId,
-        $grupoId,
-        $rol
+        int $userId,
+        int $grupoId,
+        string $rol
     ) {
         $conexion = conexion();
 
@@ -37,7 +37,7 @@ class GrupoUsuario
     {
         $conexion = conexion();
 
-        $sql = "SELECT grupo_id, grupo.titulo\n"
+        $sql = "SELECT grupo_id, grupo.titulo, grupo.is_default\n"
 
             . "FROM grupo_usuario\n"
 

@@ -11,15 +11,11 @@ function getTitle(string $page): String
         case 'login':
             $title = 'Login';
             break;
-
-        case 'dashboard':
-            $title = 'Dashboard';
-            break;
-
+            
         case 'group':
         case 'edit-group':
         case 'edit-section':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             if (GroupController::watchGroup($groupId)) {
                 $title = GroupController::GroupTitle($groupId);
             } else {
@@ -35,14 +31,26 @@ function getTitle(string $page): String
             $title = 'Habitos';
             break;
 
+        case 'my-tasks':
+            $title = 'Mis tareas';
+            break;
+
+        case 'next-7-days':
+            $title = 'Proximos 7 días';
+            break;
+
+        case 'today':
+            $title = 'Hoy';
+            break;
+
         default:
-            $title = 'Dashboard';
+            $title = 'today';
     }
 
     return $title;
 }
 
-function getGroupId(): int
+function getPathId(): int
 {
     return isset($_GET['id'])
         ? (int) $_GET['id']

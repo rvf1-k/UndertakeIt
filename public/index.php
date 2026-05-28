@@ -4,6 +4,8 @@ require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/GroupController.php';
 require_once __DIR__ . '/../app/controllers/UserController.php';
 require_once __DIR__ . '/../app/controllers/SectionController.php';
+require_once __DIR__ . '/../app/controllers/TaskController.php';
+require_once __DIR__ . '/../app/controllers/TaskLogController.php';
 require_once __DIR__ . '/../app/helpers/auth.php';
 require_once __DIR__ . '/../app/helpers/title.php';
 require_once __DIR__ . '/../app/helpers/url_helper.php';
@@ -40,38 +42,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'edit-group':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             GroupController::editGroup($groupId);
             break;
 
         case 'add-user':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             GroupController::addUser($groupId);
             break;
 
         case 'edit-group-users':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             GroupController::editGroupUsers($groupId);
             break;
 
         case 'add-section':
-            $groupId = getGroupId();
+            $groupId = getPathId();
             SectionController::createSection($groupId);
             break;
 
         case 'edit-section':
             $sectionId = getSectionId();
-            $groupId = getGroupId();
+            $groupId = getPathId();
             SectionController::editSection($sectionId, $groupId);
             break;
 
         case 'delete-section':
             SectionController::deleteSection();
             break;
+
+        case 'add-task':
+            TaskController::createTask();
+            break;
+        case 'delete-task':
+            TaskController::deleteTask();
+            break;
     }
 }
 
 // Layout
-include_once __DIR__ . '/../app/views/layouts/header.php';
-include_once __DIR__ . '/../app/views/layouts/main.php';
-include_once __DIR__ . '/../app/views/layouts/footer.php';
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+//TODO: Poner bien las rutas de public
+switch ($path) {
+    case '/undertakeit/public/tasks/users-by-group':
+        $groupId = getPathId();
+
+        $users = GroupController::getUsers($groupId);
+
+        header('Content-Type: application/json');
+
+        echo json_encode($users);
+
+        exit;
+
+    case '/undertakeit/public/tasks/check':
+        $taskId = getPathId();
+        TaskLogController::checkTask($taskId);
+        exit;
+    case '/undertakeit/public/tasks/uncheck':
+        $taskId = getPathId();
+        TaskLogController::unCheckTask($taskId);
+        exit;
+
+
+    default:
+        include_once __DIR__ . '/../app/views/layouts/header.php';
+        include_once __DIR__ . '/../app/views/layouts/main.php';
+        include_once __DIR__ . '/../app/views/layouts/footer.php';
+        break;
+}
