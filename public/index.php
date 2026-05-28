@@ -69,9 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'delete-section':
             SectionController::deleteSection();
             break;
-        
+
         case 'add-task':
             TaskController::createTask();
+            break;
+        case 'delete-task':
+            TaskController::deleteTask();
             break;
     }
 }

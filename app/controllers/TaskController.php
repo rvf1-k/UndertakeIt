@@ -181,4 +181,27 @@ class TaskController
 
         return $groupId;
     }
+
+    public static function deleteTask()
+    {
+        if (
+            empty($_POST['task_id'])
+        ) {
+            echo "No hay un id de un grupo";
+            return;
+        }
+        $taskId = trim($_POST['task_id']);
+        $group_id = TaskController::getGroupTasks($taskId);
+
+        if (GroupController::editorGroup($group_id)) {
+            Task::delete(
+                $taskId
+            );
+            echo redirect();
+            exit();
+        } else {
+            echo "No tienes permiso para borrar las tareas";
+            return;
+        }
+    }
 }
