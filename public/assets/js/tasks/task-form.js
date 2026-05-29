@@ -1,5 +1,3 @@
-import { post } from "../api/http.js";
-
 sectionSelect.addEventListener("change", async () => {
   const selectedOption = sectionSelect.selectedOptions[0];
   const groupId = selectedOption.dataset.groupId;
