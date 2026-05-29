@@ -7,6 +7,7 @@ class Task
     public static function create(
         string $titulo,
         ?string $descripcion,
+        ?string $imagen,
         string $fechaInicio,
         ?string $fechaFin,
         ?string $recurrenceRule,
@@ -19,6 +20,7 @@ class Task
         INSERT INTO tarea (
             titulo,
             descripcion,
+            imagen,
             fecha_inicio,
             fecha_fin,
             recurrence_rule,
@@ -28,6 +30,7 @@ class Task
         VALUES (
             :titulo,
             :descripcion,
+            :imagen,
             :fecha_inicio,
             :fecha_fin,
             :recurrence_rule,
@@ -41,6 +44,7 @@ class Task
         $stmt->execute([
             ':titulo' => $titulo,
             ':descripcion' => $descripcion,
+            ':imagen' => $imagen,
             ':fecha_inicio' => $fechaInicio,
             ':fecha_fin' => $fechaFin,
             ':recurrence_rule' => $recurrenceRule,
@@ -92,8 +96,8 @@ class Task
 
         $conexion = conexion();
 
-        $sql = 
-        "SELECT tarea.*  
+        $sql =
+            "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
         INNER JOIN grupo ON seccion.grupo_id = grupo.id
@@ -114,8 +118,8 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = 
-        "SELECT tarea.*  
+        $sql =
+            "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
         INNER JOIN grupo ON seccion.grupo_id = grupo.id
@@ -137,8 +141,8 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = 
-        "SELECT tarea.*  
+        $sql =
+            "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
         INNER JOIN grupo ON seccion.grupo_id = grupo.id
@@ -161,8 +165,8 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = 
-        "SELECT tarea.*  
+        $sql =
+            "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
         INNER JOIN grupo ON seccion.grupo_id = grupo.id
@@ -185,8 +189,8 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = 
-        "SELECT tarea.*  
+        $sql =
+            "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
         INNER JOIN grupo ON seccion.grupo_id = grupo.id
@@ -209,8 +213,8 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = 
-        "SELECT tarea.*  
+        $sql =
+            "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
         INNER JOIN grupo ON seccion.grupo_id = grupo.id
@@ -235,8 +239,8 @@ class Task
     {
         $conexion = conexion();
 
-        $sql = 
-        "SELECT tarea.*  
+        $sql =
+            "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
         INNER JOIN grupo ON seccion.grupo_id = grupo.id

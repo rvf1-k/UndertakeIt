@@ -20,7 +20,7 @@
         </div>
 
         <!-- FORM -->
-        <form method="POST" class="flex flex-col">
+        <form method="POST" enctype="multipart/form-data" class="flex flex-col">
 
             <div class="p-6 flex flex-col gap-6">
 
@@ -98,7 +98,7 @@
                 */
                 ?>
 
-                <!-- Fechas -->
+                <!-- Fechas (con imagen) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                     <div class="form-group flex flex-col gap-2">
@@ -118,7 +118,26 @@
                             class="input">
 
                     </div>
+                    <div class="form-group flex flex-col gap-2">
+                        <label
+                            for="imagen"
+                            class="text-sm font-medium text-gray-700">
 
+                            Imagen
+
+                        </label>
+
+                        <input
+                            type="file"
+                            id="imagen"
+                            name="imagen"
+                            accept="image/*"
+                            class="input cursor-pointer">
+                    </div>
+
+                    <?php
+                    //TODO: fecha fin
+                    /*
                     <div class="form-group flex flex-col gap-2">
 
                         <label
@@ -136,6 +155,8 @@
                             class="input">
 
                     </div>
+                    */
+                    ?>
 
                 </div>
 
