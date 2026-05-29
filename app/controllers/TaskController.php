@@ -265,13 +265,16 @@ class TaskController
                         <?php endif; ?>
 
                         <!-- IMÁGENES -->
-                        <?php if (empty($task['descripcion'])): ?>
+                        <?php if (!empty($task['imagen'])): ?>
                             <div
                                 class="task-images flex flex-wrap gap-3"
                                 data-task-images="<?= $task['id'] ?>">
                                 <div class="task-image">
                                     <img
-                                        src="<?= $task['imagen'] ?>"
+                                        <?php
+                                        //TODO: rutas 
+                                        ?>
+                                        src="/undertakeit/public<?= $task['imagen'] ?>"
                                         alt="Imagen adjunta"
                                         class="fancybox-img w-24 h-24 object-cover border border-gray-200">
                                 </div>

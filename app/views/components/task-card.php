@@ -112,6 +112,7 @@
                         </label>
 
                         <input
+                            required
                             type="datetime-local"
                             id="fecha_inicio"
                             name="fecha_inicio"

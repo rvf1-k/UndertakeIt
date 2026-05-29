@@ -86,7 +86,7 @@ class SectionController
 
                     <button
                         type="button"
-                        id="crear-tarea"
+                        id="add-task-section"
                         class="w-full py-3 px-4 border border-gray-300 bg-gray-100 hover:bg-gray-200 transition text-sm font-medium text-gray-700">
                         <i class="fa-solid fa-plus mr-2"></i>
                         Añadir tarea

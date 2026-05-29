@@ -1,41 +1,35 @@
-// Abre y cierra modales usando sus IDs
-
+// Abre y cierra modales usando animaciones
 function createModal(openId, closeId, modalId) {
 
-  const modal = $("#" + modalId);
+    const modal = $("#" + modalId);
 
-  if (!modal.length) {
-    return;
-  }
+    if (!modal.length) {
+        return;
+    }
 
-  $("#" + openId).on("click", function () {
+    $("#" + openId).on("click", function () {
 
-    modal.removeClass("hidden");
+        modal
+            .removeClass("hidden")
+            .hide()
+            .fadeIn(200);
 
-  });
+    });
 
-  $("#" + closeId).on("click", function () {
+    $("#" + closeId).on("click", function () {
 
-    modal.addClass("hidden");
+        modal.fadeOut(200, function () {
+            modal.addClass("hidden");
+        });
 
-  });
+    });
 
 }
 
-createModal(
-  "crear-group",
-  "close-modal-group",
-  "task-modal-group"
-);
+createModal("crear-group", "close-modal-group", "task-modal-group");
 
-createModal(
-  "crear-section",
-  "close-modal-section",
-  "task-modal-section"
-);
+createModal("crear-section", "close-modal-section", "task-modal-section");
 
-createModal(
-  "add-task",
-  "close-modal-task",
-  "task-modal"
-);
+createModal("add-task-section", "close-modal-task", "task-modal");
+
+createModal("add-task", "close-modal-task", "task-modal");

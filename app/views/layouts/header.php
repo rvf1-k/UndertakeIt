@@ -15,9 +15,23 @@
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
+
 
 </head>
+
+<style>
+    :root {
+        --primary-color: <?= isset($_COOKIE['primary_color']) ? $_COOKIE['primary_color'] : '#3b82f6' ?>;
+    }
+</style>
 
 <body>
     <div id="app-layout" class="flex h-screen">

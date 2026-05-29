@@ -23,3 +23,15 @@ $(document).ready(function () {
   });
 
 });
+
+// Slider para showcase
+$(document).ready(function () {
+
+    $('.slider').slick({
+        autoplay: true,
+        dots: true,
+        arrows: true,
+        autoplaySpeed: 5000
+    });
+
+});

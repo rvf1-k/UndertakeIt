@@ -32,16 +32,16 @@
 
     </ul>
 
-    <div class="pb-4">
+    <!-- Logout -->
+    <form action="?page=logout" method="POST">
+        <button type="submit" class="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+        <input type="hidden" name="action" value="logout">
+    </form>
 
-        <form action="?page=logout" method="POST">
-            <button type="submit"
-                class="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition">
-                <i class="fa-solid fa-gear text-xl"></i>
-            </button>
-            <input type="hidden" name="action" value="logout">
-        </form>
-
-    </div>
-
+    <input type="color"
+        id="primary-color-picker"
+        value="<?= isset($_COOKIE['primary_color']) ? $_COOKIE['primary_color'] : '#3b82f6' ?>"
+        class="w-8 h-8 cursor-pointer border-none bg-transparent">
 </nav>

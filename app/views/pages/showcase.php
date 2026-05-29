@@ -105,131 +105,66 @@
 
     <!-- RIGHT -->
 
-    <div
-        class="relative bg-gray-100 overflow-hidden">
+    <div class="bg-gray-100 overflow-hidden">
 
-        <div
-            class="slider h-full">
+    <div class="slider h-screen">
 
-            <!-- SLIDE -->
+        <!-- SLIDE -->
 
-            <div
-                class="relative h-screen">
+        <div class="relative h-screen">
 
-                <a
-                    data-fancybox="undertakeit-gallery"
-                    href="assets/img/showcase/tasks.webp"
-                    class="block h-full">
+            <a
+                data-fancybox="undertakeit-gallery"
+                href="assets/img/captura1.png"
+                class="block h-full">
 
-                    <img
-                        src="assets/img/showcase/tasks.webp"
-                        alt="Tareas"
-                        class="w-full h-full object-cover">
+                <img
+                    src="assets/img/captura1.png"
+                    alt=""
+                    class="w-full h-full object-cover">
 
-                </a>
+            </a>
 
-                <div
-                    class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+        </div>
 
-                    <h2
-                        class="text-3xl font-bold">
+        <!-- SLIDE -->
 
-                        Gestiona tus tareas
+        <div class="relative h-screen">
 
-                    </h2>
+            <a
+                data-fancybox="undertakeit-gallery"
+                href="assets/img/captura2.png"
+                class="block h-full">
 
-                    <p
-                        class="text-lg text-gray-200">
+                <img
+                    src="assets/img/captura2.png"
+                    alt=""
+                    class="w-full h-full object-cover">
 
-                        Organiza todas tus actividades
-                        en una interfaz moderna y simple.
+            </a>
 
-                    </p>
+        </div>
 
-                </div>
+        <!-- SLIDE -->
 
-            </div>
+        <div class="relative h-screen">
 
-            <!-- SLIDE -->
+            <a
+                data-fancybox="undertakeit-gallery"
+                href="assets/img/captura3.png"
+                class="block h-full">
 
-            <div
-                class="relative h-screen">
+                <img
+                    src="assets/img/captura3.png"
+                    alt=""
+                    class="w-full h-full object-cover">
 
-                <a
-                    data-fancybox="undertakeit-gallery"
-                    href="assets/img/showcase/calendar.webp"
-                    class="block h-full">
-
-                    <img
-                        src="assets/img/showcase/calendar.webp"
-                        alt="Calendario"
-                        class="w-full h-full object-cover">
-
-                </a>
-
-                <div
-                    class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
-
-                    <h2
-                        class="text-3xl font-bold">
-
-                        Visualiza tu calendario
-
-                    </h2>
-
-                    <p
-                        class="text-lg text-gray-200">
-
-                        Consulta tus tareas y fechas
-                        importantes rápidamente.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-            <!-- SLIDE -->
-
-            <div
-                class="relative h-screen">
-
-                <a
-                    data-fancybox="undertakeit-gallery"
-                    href="assets/img/showcase/pdf.webp"
-                    class="block h-full">
-
-                    <img
-                        src="assets/img/showcase/pdf.webp"
-                        alt="PDF"
-                        class="w-full h-full object-cover">
-
-                </a>
-
-                <div
-                    class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
-
-                    <h2
-                        class="text-3xl font-bold">
-
-                        Exporta tus tareas
-
-                    </h2>
-
-                    <p
-                        class="text-lg text-gray-200">
-
-                        Descarga tus listas de tareas
-                        en PDF cuando quieras.
-
-                    </p>
-
-                </div>
-
-            </div>
+            </a>
 
         </div>
 
     </div>
+
+</div>
 
 </section>

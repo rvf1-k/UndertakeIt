@@ -2,6 +2,8 @@ import "./ui/modal.js";
 import "./ui/dropdown.js";
 import "./ui/fancybox.js";
 import "./ui/welcome.js";
+import "./ui/color.js";
 import "./tasks/checkbox.js";
 import "./tasks/task-form.js";
 import "./tasks/dropdown-tasks.js";
+import "./check/caracters.js";
