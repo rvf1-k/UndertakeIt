@@ -1,13 +1,13 @@
-document.addEventListener("change", async (e) => {
-  const checkbox = e.target.closest(".task-checkbox");
+// Marca o desmarca una tarea automáticamente al cambiar el checkbox
 
-  if (!checkbox) return;
+$(document).on("change", ".task-checkbox", async function () {
 
-  const taskId = checkbox.dataset.taskId;
+  const taskId = $(this).data("task-id");
 
-  const url = checkbox.checked
+  const url = $(this).is(":checked")
     ? "tasks/check?id=" + taskId
     : "tasks/uncheck?id=" + taskId;
 
   await fetch(url);
+
 });

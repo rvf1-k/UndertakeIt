@@ -1,22 +1,25 @@
-document.addEventListener("click", (e) => {
-  const button = e.target.closest(".menu-toggle");
+// Abre o cierra el menú de opciones al pulsar el botón
 
-  if (!button) {
-    document.querySelectorAll(".menu-popup").forEach((menu) => {
-      menu.classList.add("hidden");
-    });
+$(document).on("click", function (e) {
+
+  const button =
+    $(e.target).closest(".menu-toggle");
+
+  if (!button.length) {
+
+    $(".menu-popup").addClass("hidden");
 
     return;
   }
 
-  const container = button.closest(".menu-container");
-  const popup = container.querySelector(".menu-popup");
+  const container =
+    button.closest(".menu-container");
 
-  document.querySelectorAll(".menu-popup").forEach((menu) => {
-    if (menu !== popup) {
-      menu.classList.add("hidden");
-    }
-  });
+  const popup =
+    container.find(".menu-popup");
 
-  popup.classList.toggle("hidden");
+  $(".menu-popup").not(popup).addClass("hidden");
+
+  popup.toggleClass("hidden");
+
 });

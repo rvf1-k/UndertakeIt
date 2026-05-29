@@ -1,21 +1,41 @@
+// Abre y cierra modales usando sus IDs
+
 function createModal(openId, closeId, modalId) {
-  const openButton = document.getElementById(openId);
-  const closeButton = document.getElementById(closeId);
-  const modal = document.getElementById(modalId);
 
-  if (!modal) return;
+  const modal = $("#" + modalId);
 
-  openButton?.addEventListener("click", () => {
-    modal.classList.remove("hidden");
+  if (!modal.length) {
+    return;
+  }
+
+  $("#" + openId).on("click", function () {
+
+    modal.removeClass("hidden");
+
   });
 
-  closeButton?.addEventListener("click", () => {
-    modal.classList.add("hidden");
+  $("#" + closeId).on("click", function () {
+
+    modal.addClass("hidden");
+
   });
+
 }
 
-createModal("crear-group", "close-modal-group", "task-modal-group");
+createModal(
+  "crear-group",
+  "close-modal-group",
+  "task-modal-group"
+);
 
-createModal("crear-section", "close-modal-section", "task-modal-section");
+createModal(
+  "crear-section",
+  "close-modal-section",
+  "task-modal-section"
+);
 
-createModal("add-task", "close-modal-task", "task-modal");
+createModal(
+  "add-task",
+  "close-modal-task",
+  "task-modal"
+);

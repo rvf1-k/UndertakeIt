@@ -1,9 +1,11 @@
-document.addEventListener("click", (e) => {
-    console.log("hola");
-    const button = e.target.closest(".task-toggle");
-    
-    const container = button.closest(".task-item");
-    const content = container.querySelector(".task-content");
-  
-    content.classList.toggle("hidden");
+// Muestra u oculta el contenido de una tarea al pulsar el botón
+
+$(document).on("click", ".task-toggle", function () {
+
+  const container = $(this).closest(".task-item");
+
+  const content = container.find(".task-content");
+
+  content.toggleClass("hidden");
+
 });
