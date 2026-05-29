@@ -2,6 +2,9 @@
 
 require_once __DIR__ . '/../models/Task.php';
 require_once __DIR__ . '/../models/GrupoUsuario.php';
+require_once __DIR__ . "/../../vendor/autoload.php";
+
+use Dompdf\Dompdf;
 
 class TaskController
 {
@@ -168,7 +171,7 @@ class TaskController
     {
         foreach ($tasks as $task): ?>
             <div class="flex items-center gap-2 px-2 relative">
-                <input type="checkbox" <?php echo (TaskLogController::isCompleted($task['id'],$task['fecha_inicio']) ? "checked" : "");   ?> class="task-checkbox" data-task-id="<?= $task['id'] ?>" />
+                <input type="checkbox" <?php echo (TaskLogController::isCompleted($task['id'], $task['fecha_inicio']) ? "checked" : "");   ?> class="task-checkbox" data-task-id="<?= $task['id'] ?>" />
                 <span><a href="?page=group&id=<?php echo SectionController::getGroup($task['seccion_id']) ?>"><?= $task['titulo'] ?></a></span>
                 <span class="ml-auto"><?= TaskController::formatDate($task['fecha_inicio']); ?></span>
                 <form method="POST">
@@ -201,7 +204,7 @@ class TaskController
             <div>
                 <p><?= $task['descripcion'] ?></p>
             </div>
-<?php endforeach;
+        <?php endforeach;
     }
 
     public static function getGroupTasks(int $taskId)
@@ -232,5 +235,105 @@ class TaskController
             echo "No tienes permiso para borrar las tareas";
             return;
         }
+    }
+
+    public static function downloadAllPdf()
+    {
+        $userId = currentUserId();
+
+        $tasks = Task::getAllTasks($userId);
+        $filtrer = $_GET['filtrer'] ?? "my-tasks";
+
+        ob_start();
+        ?>
+        <html>
+
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    color: #222;
+                    padding: 20px;
+                    font-size: 14px;
+                }
+
+                section {
+                    border: 1px solid #ccc;
+                    border-radius: 10px;
+                    padding: 16px;
+                    margin-bottom: 20px;
+                }
+
+                h2 {
+                    margin: 0 0 15px 0;
+                    font-size: 22px;
+                }
+
+                .flex {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .justify-between {
+                    justify-content: space-between;
+                }
+
+                .gap-2>* {
+                    margin-right: 8px;
+                }
+
+                .task-checkbox {
+                    margin-right: 10px;
+                }
+
+                .ml-auto {
+                    margin-left: auto;
+                    color: #666;
+                    font-size: 12px;
+                }
+
+                a {
+                    color: #111;
+                    text-decoration: none;
+                    font-weight: bold;
+                }
+
+                form {
+                    display: none;
+                }
+
+                i {
+                    display: none;
+                }
+
+                p {
+                    margin: 5px 0 15px 28px;
+                    color: #555;
+                    font-size: 13px;
+                }
+
+                .relative {
+                    padding: 8px 0;
+                    border-bottom: 1px solid #eee;
+                }
+            </style>
+
+        <body>
+
+            <h1>UndertakeIt - <?= getTitle($filtrer) ?></h1>
+
+            <?php require __DIR__ . "/../views/pages/task/" . $filtrer . ".php"; ?>
+
+        </body>
+
+        </html>
+
+<?php
+        $html = ob_get_clean();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4');
+        $dompdf->render();
+        $dompdf->stream(getTitle($filtrer) . ".pdf");
     }
 }

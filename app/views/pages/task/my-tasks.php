@@ -11,7 +11,7 @@
         ?>
     </div>
 </section>
-<!-- Hábitos -->
+<!-- Tareas -->
 <section class="border border-gray-400 rounded-[10px] m-4 p-4 md:mx-16 md:my-8">
     <div class="flex justify-between items-center">
         <h2 class="text-xl font-semibold">Pendientes</h2>

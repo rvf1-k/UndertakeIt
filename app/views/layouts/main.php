@@ -26,14 +26,17 @@
             break;
 
         case 'today':
+            include_once __DIR__ . '/../components/download-pdf.php';
             $view = 'task/today.php';
             break;
 
         case 'next-7-days':
+            include_once __DIR__ . '/../components/download-pdf.php';
             $view = 'task/next-7-days.php';
             break;
 
         case 'my-tasks':
+            include_once __DIR__ . '/../components/download-pdf.php';
             $view = 'task/my-tasks.php';
             break;
 
@@ -58,6 +61,7 @@
             break;
 
         default:
+            include_once __DIR__ . '/../components/download-pdf.php';
             $view = 'task/today.php';
     }
 

@@ -158,7 +158,6 @@
 
                     <?php
                     $sectionsByGroup = GroupController::getByGroupAllSections();
-                    var_dump($sectionsByGroup);
                     foreach ($sectionsByGroup as $i => $group): ?>
 
                         <?php if ($group['is_default']) {

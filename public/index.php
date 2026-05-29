@@ -82,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Layout
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
 //TODO: Poner bien las rutas de public
 switch ($path) {
     case '/undertakeit/public/tasks/users-by-group':
@@ -103,6 +102,9 @@ switch ($path) {
     case '/undertakeit/public/tasks/uncheck':
         $taskId = getPathId();
         TaskLogController::unCheckTask($taskId);
+        exit;
+    case '/undertakeit/public/pdf':
+            TaskController::downloadAllPdf();
         exit;
 
 
