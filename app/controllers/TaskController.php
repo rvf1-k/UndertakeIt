@@ -186,7 +186,7 @@ class TaskController
 
                 <!-- TASK HEADER -->
                 <div
-                    class="task-toggle flex items-center gap-3 px-4 py-3 cursor-pointer select-none">
+                    class="task-toggle flex items-center gap-3 px-4 py-3 select-none">
 
                     <!-- CHECKBOX -->
                     <input
@@ -218,7 +218,7 @@ class TaskController
                     <!-- TOGGLE -->
                     <button
                         type="button"
-                        class="task-expand w-7 h-7 flex items-center justify-center text-gray-400 hover:text-gray-600 transition">
+                        class="task-expand cursor-pointer w-7 h-7 flex items-center justify-center text-gray-400 hover:text-gray-600 transition">
 
                         <i class="fa-solid fa-angle-down text-xs"></i>
 
@@ -310,7 +310,7 @@ class TaskController
 
                 <!-- TASK HEADER -->
                 <div
-                    class="task-toggle flex items-center gap-3 px-4 py-3 cursor-pointer select-none">
+                    class="task-toggle flex items-center gap-3 px-4 py-3 select-none">
 
                     <!-- CHECKBOX -->
                     <input
@@ -341,7 +341,7 @@ class TaskController
                     <!-- TOGGLE -->
                     <button
                         type="button"
-                        class="task-expand w-7 h-7 flex items-center justify-center text-gray-400 hover:text-gray-600 transition">
+                        class="task-expand cursor-pointer w-7 h-7 flex items-center justify-center text-gray-400 hover:text-gray-600 transition">
 
                         <i class="fa-solid fa-angle-down text-xs"></i>
 
