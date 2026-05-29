@@ -58,7 +58,7 @@ class Task
         $sql = "SELECT tarea.* 
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
-        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo ON seccion.grupo_id = grupo.id
         INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
         WHERE grupo_usuario.user_id = :currentUserId
         ORDER BY tarea.fecha_inicio ASC";
@@ -89,13 +89,14 @@ class Task
 
     public static function getToDoTasks(int $userId)
     {
+
         $conexion = conexion();
 
         $sql = 
         "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
-        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo ON seccion.grupo_id = grupo.id
         INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
         WHERE grupo_usuario.user_id = :currentUserId
         AND fecha_inicio >= NOW()
@@ -117,7 +118,7 @@ class Task
         "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
-        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo ON seccion.grupo_id = grupo.id
         INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
         WHERE grupo_usuario.user_id = :currentUserId
         AND fecha_inicio < NOW()
@@ -140,7 +141,7 @@ class Task
         "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
-        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo ON seccion.grupo_id = grupo.id
         INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
         WHERE grupo_usuario.user_id = :currentUserId
         AND DATE(fecha_inicio) = CURDATE()
@@ -164,7 +165,7 @@ class Task
         "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
-        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo ON seccion.grupo_id = grupo.id
         INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
         WHERE grupo_usuario.user_id = :currentUserId
         AND DATE(fecha_inicio) = CURDATE()
@@ -188,7 +189,7 @@ class Task
         "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
-        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo ON seccion.grupo_id = grupo.id
         INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
         WHERE grupo_usuario.user_id = :currentUserId
         AND fecha_inicio BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY)
@@ -212,7 +213,7 @@ class Task
         "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
-        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo ON seccion.grupo_id = grupo.id
         INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
         WHERE grupo_usuario.user_id = :currentUserId
         AND seccion_id = :currentSectionId
@@ -238,7 +239,7 @@ class Task
         "SELECT tarea.*  
         FROM tarea 
         INNER JOIN seccion ON tarea.seccion_id = seccion.id
-        INNER JOIN grupo ON seccion.id = grupo.id
+        INNER JOIN grupo ON seccion.grupo_id = grupo.id
         INNER JOIN grupo_usuario ON grupo.id = grupo_usuario.grupo_id
         WHERE grupo_usuario.user_id = :currentUserId
         AND seccion_id = :currentSectionId
