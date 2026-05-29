@@ -4,9 +4,9 @@
 
     if (!isset($_SESSION['user_id'])) {
 
-        if ($page !== 'register') {
+        if ($page != 'register' && $page != 'login') {
 
-            $page = 'login';
+            $page = 'showcase';
         }
     } else {
 
@@ -14,6 +14,10 @@
     }
 
     switch ($page) {
+
+        case 'showcase':
+            $view = 'showcase.php';
+            break;
 
         case 'register':
             $view = 'register.php';
@@ -66,8 +70,9 @@
 
 
     ?>
+
     <div class="flex h-screen bg-gray-100 min-h-0 overflow-hidden">
-        <aside class="w-64 bg-white border-r border-gray-200 flex-shrink-0">
+        <aside id="navbar-aside" class="w-64 bg-white border-r border-gray-200 flex-shrink-0">
             <?php include_once __DIR__ . '/../components/navbar.php'; ?>
         </aside>
 

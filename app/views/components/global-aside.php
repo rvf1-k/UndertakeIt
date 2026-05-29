@@ -1,4 +1,4 @@
-<nav class="h-full flex flex-col items-center py-4 px-2 gap-2 bg-white border-r border-gray-200">
+<nav id="global-nav" class="h-full flex flex-col items-center py-4 px-2 gap-2 bg-white border-r border-gray-200">
 
     <ul class="flex flex-col items-center gap-2 flex-1">
 

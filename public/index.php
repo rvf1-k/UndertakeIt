@@ -9,6 +9,7 @@ require_once __DIR__ . '/../app/controllers/TaskLogController.php';
 require_once __DIR__ . '/../app/helpers/auth.php';
 require_once __DIR__ . '/../app/helpers/title.php';
 require_once __DIR__ . '/../app/helpers/url_helper.php';
+require_once __DIR__ . '/../app/helpers/UploadHelper.php';
 
 session_start();
 
@@ -45,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $groupId = getPathId();
             GroupController::editGroup($groupId);
             break;
-        
+
         case 'exit-group':
             $groupId = getPathId();
             GroupController::exitGroup($groupId);
@@ -109,10 +110,8 @@ switch ($path) {
         TaskLogController::unCheckTask($taskId);
         exit;
     case '/undertakeit/public/pdf':
-            TaskController::downloadAllPdf();
+        TaskController::downloadAllPdf();
         exit;
-
-
     default:
         include_once __DIR__ . '/../app/views/layouts/header.php';
         include_once __DIR__ . '/../app/views/layouts/main.php';
