@@ -34,7 +34,7 @@
 </style>
 
 <body>
-    <div id="app-layout" class="flex h-screen">
+    <div id="app-layout" class="flex h-screen pb-16 md:pb-0">
 
         <?php include_once __DIR__ . '/../components/global-aside.php'; ?>
 
@@ -42,10 +42,12 @@
         <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
 
             <!-- HEADER -->
-            <header id="global-header" class="shrink-0 flex items-center justify-between px-8 py-5 bg-white border-b border-gray-200">
+            <header id="global-header" class="shrink-0 flex items-center justify-between px-4 py-4 md:px-8 md:py-5 bg-white border-b border-gray-200">
 
                 <div class="flex items-center gap-4">
-
+                    <button id="open-navbar-aside" class="block md:hidden p-2 rounded-lg hover:bg-gray-100 transition">
+                        <i class="fa-solid fa-bars text-gray-700"></i>
+                    </button>
                     <h1 class="text-xl font-semibold text-gray-800">
                         <?= htmlspecialchars($title) ?>
                     </h1>

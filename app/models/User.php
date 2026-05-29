@@ -84,16 +84,31 @@ class User
         return $stmt->fetchColumn();
     }
 
-    public static function existUser(string $email)
+    public static function existUserEmail(string $email)
     {
         $conexion = conexion();
 
-        $sql = "SELECT 1 FROM users WHERE email = :email LIMIT 1";
+        $sql = "SELECT 1 FROM users WHERE username = :username LIMIT 1";
 
         $stmt = $conexion->prepare($sql);
 
         $stmt->execute([
             ':email' => $email
+        ]);
+
+        return (bool) $stmt->fetchColumn();
+    }
+
+    public static function existUserName(string $username)
+    {
+        $conexion = conexion();
+
+        $sql = "SELECT 1 FROM users WHERE username = :username LIMIT 1";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':username' => $username
         ]);
 
         return (bool) $stmt->fetchColumn();

@@ -33,3 +33,5 @@ createModal("crear-section", "close-modal-section", "task-modal-section");
 createModal("add-task-section", "close-modal-task", "task-modal");
 
 createModal("add-task", "close-modal-task", "task-modal");
+
+createModal("open-navbar-aside", "close-navbar-aside", "navbar-aside");

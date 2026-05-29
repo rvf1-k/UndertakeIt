@@ -51,6 +51,7 @@
                 </label>
 
                 <input
+                    id="password"
                     type="password"
                     name="password"
                     required
