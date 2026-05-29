@@ -286,7 +286,7 @@ class GroupController
         $email = trim($_POST['new_user_email']);
         $role = trim($_POST['new_user_role']) ?? "Lector";
 
-        if (!UserController::existUser($email)) {
+        if (!UserController::existUserEmail($email)) {
             echo "Este usuario no existe";
             return;
         }

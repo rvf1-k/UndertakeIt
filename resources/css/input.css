@@ -5,7 +5,7 @@
 /*TODO: El estilo no está del todo definido, este es temporal*/
 
 :root {
-    --primary-color: #253D4E;
+  --primary-color: #253d4e;
 }
 
 body {
@@ -18,104 +18,137 @@ body {
 
 /*True*/
 .btn {
-    @apply px-4 py-3 rounded-lg font-medium transition;
+  @apply px-4 py-3 rounded-lg font-medium transition;
 }
 
 .btn-primary {
-    @apply text-white hover:opacity-90;
-    background-color: var(--primary-color);
+  @apply text-white hover:opacity-90;
+  background-color: var(--primary-color);
 }
 
 .btn-secondary {
-    @apply bg-gray-100 border border-gray-300 text-gray-700 hover:bg-gray-200;
+  @apply bg-gray-100 border border-gray-300 text-gray-700 hover:bg-gray-200;
 }
 
 .btn-danger {
-    @apply bg-red-50 border border-red-200 text-red-600 hover:bg-red-100;
+  @apply bg-red-50 border border-red-200 text-red-600 hover:bg-red-100;
 }
 
 .btn-icon {
-    @apply w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-600 hover:bg-gray-100 transition;
+  @apply w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-600 hover:bg-gray-100 transition;
 }
 
 .input {
-    width: 100%;
+  width: 100%;
 
-    padding: 0.75rem 1rem;
+  padding: 0.75rem 1rem;
 
-    background-color: white;
+  background-color: white;
 
-    border: 1px solid rgb(209 213 219); /* gray-300 */
+  border: 1px solid rgb(209 213 219); /* gray-300 */
 
-    border-radius: 0.75rem;
+  border-radius: 0.75rem;
 
-    color: rgb(31 41 55); /* gray-800 */
+  color: rgb(31 41 55); /* gray-800 */
 
-    font-size: 0.95rem;
+  font-size: 0.95rem;
 
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .input::placeholder {
-    color: rgb(156 163 175); /* gray-400 */
+  color: rgb(156 163 175); /* gray-400 */
 }
 
 .input:hover {
-    background-color: rgb(249 250 251); /* gray-50 */
+  background-color: rgb(249 250 251); /* gray-50 */
 }
 
 .input:focus {
-    outline: none;
+  outline: none;
 
-    border-color: var(--primary-color);
+  border-color: var(--primary-color);
 
-    box-shadow: 0 0 0 3px rgba(37, 61, 78, 0.12);
+  box-shadow: 0 0 0 3px rgba(37, 61, 78, 0.12);
 }
 
 .input:disabled {
-    background-color: rgb(243 244 246); /* gray-100 */
+  background-color: rgb(243 244 246); /* gray-100 */
 
-    color: rgb(156 163 175); /* gray-400 */
+  color: rgb(156 163 175); /* gray-400 */
 
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 textarea.input {
-    resize: vertical;
-    min-height: 120px;
+  resize: vertical;
+  min-height: 120px;
 }
 
 select.input {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .task-list-section,
 #groups-section {
-    scrollbar-width: thin;
-    scrollbar-color: #cbd5e1 transparent;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
 }
 
 .task-list-section::-webkit-scrollbar,
 #groups-section::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+  width: 5px;
+  height: 5px;
 }
 
 .task-list-section::-webkit-scrollbar-track,
 #groups-section::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .task-list-section::-webkit-scrollbar-thumb,
 #groups-section::-webkit-scrollbar-thumb {
-    background-color: #cbd5e1;
-    border-radius: 20px;
+  background-color: #cbd5e1;
+  border-radius: 20px;
 }
 
 .task-list-section::-webkit-scrollbar-thumb:hover,
 #groups-section::-webkit-scrollbar-thumb:hover {
-    background-color: #94a3b8;
+  background-color: #94a3b8;
+}
+
+.slider,
+.slick-list,
+.slick-track,
+.slick-slide,
+.slick-slide > div {
+    height: 100vh;
+}
+
+.slick-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slick-prev,
+.slick-next {
+    z-index: 50;
+}
+
+.slick-prev {
+    left: 20px;
+}
+
+.slick-next {
+    right: 20px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-size: 32px;
+    color: white;
 }

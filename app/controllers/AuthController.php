@@ -15,18 +15,32 @@ class AuthController
             return;
         }
 
-        $usuario = trim($_POST['username']);
+        $username = trim($_POST['username']);
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
 
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "Email no válido";
+            return;
+        }
+
+        if (User::existUserName($username)) {
+            echo "El usuario ya existe";
+            return;
+        }
+
+        if (User::existUserEmail($email)) {
+            echo "El email ya existe";
+            return;
+        }
+
         $userId = User::create(
-            $usuario,
+            $username,
             $email,
             $password
         );
 
         if ($userId) {
-
             $groupDefault = Grupo::createDefault();
             Section::createFirst($groupDefault);
             GrupoUsuario::addUser(

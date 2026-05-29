@@ -67,3 +67,17 @@ $(document).on("change", "#sectionSelect", async function () {
   });
 
 });
+
+$(document).ready(function() {
+    var ahora = new Date();
+
+    var año = ahora.getFullYear();
+    var mes = String(ahora.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
+    var dia = String(ahora.getDate()).padStart(2, '0');
+    var hora = String(ahora.getHours()).padStart(2, '0');
+    var minutos = String(ahora.getMinutes()).padStart(2, '0');
+
+    var fechaFormateada = `${año}-${mes}-${dia}T${hora}:${minutos}`;
+
+    $('#fecha_inicio').val(fechaFormateada);
+});

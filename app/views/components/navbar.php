@@ -1,19 +1,18 @@
 <div class="h-full flex flex-col p-4 bg-white border-r border-gray-200 min-h-0">
-
     <section class="flex flex-col gap-1 flex-shrink-0">
 
         <a href="?page=today"
-           class="px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition">
+            class="px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition">
             Hoy
         </a>
 
         <a href="?page=next-7-days"
-           class="px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition">
+            class="px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition">
             Próximos 7 días
         </a>
 
         <a href="?page=my-tasks"
-           class="px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition">
+            class="px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition">
             Mis tareas
         </a>
 
@@ -33,5 +32,8 @@
         <?php GroupController::GroupList(); ?>
 
     </section>
-
+    <button id="close-navbar-aside"
+        class="absolute md:hidden  w-12 h-12 bg-white rounded-full bottom-20 right-5 border border-gray-200 shadow-md flex items-center justify-center text-gray-500 hover:text-gray-800 transition focus:outline-none z-50">
+        <i class="fa-solid fa-xmark text-lg"></i>
+    </button>
 </div>
