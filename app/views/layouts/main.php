@@ -59,7 +59,7 @@
             break;
 
         case 'habitos':
-            $view = 'task/list.php';
+            $view = 'task/habits.php';
             break;
 
         default:

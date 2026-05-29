@@ -8,3 +8,4 @@ title: Inicio
 Este es el sitio principal.
 
 * [Ver la Guía de Estilo](./guia-estilo)
+* [Prototipos](./prototipos.md)
