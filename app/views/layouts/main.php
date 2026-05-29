@@ -72,7 +72,7 @@
     ?>
 
     <div class="flex h-screen bg-gray-100 min-h-0 overflow-hidden">
-        <aside id="navbar-aside" class="w-64 bg-white border-r border-gray-200 flex-shrink-0">
+        <aside id="navbar-aside" class="hidden md:block w-64 bg-white border-r border-gray-200 flex-shrink-0">
             <?php include_once __DIR__ . '/../components/navbar.php'; ?>
         </aside>
 
