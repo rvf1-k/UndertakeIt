@@ -45,6 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $groupId = getPathId();
             GroupController::editGroup($groupId);
             break;
+        
+        case 'exit-group':
+            $groupId = getPathId();
+            GroupController::exitGroup($groupId);
+            break;
 
         case 'add-user':
             $groupId = getPathId();

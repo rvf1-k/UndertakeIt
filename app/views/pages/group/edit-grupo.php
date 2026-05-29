@@ -258,6 +258,20 @@
 
         </div>
 
+        <!-- Salir -->
+        <form
+            action="?page=exit-group&id=<?= $group['id'] ?>"
+            method="POST">
+            <button
+                type="submit"
+                name="action"
+                value="exit-group"
+                class="btn btn-danger">
+
+                Salir
+
+            </button>
+        </form>
     </div>
 
 </section>

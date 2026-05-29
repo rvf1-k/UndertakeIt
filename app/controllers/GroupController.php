@@ -244,6 +244,27 @@ class GroupController
         echo redirect();
         exit();
     }
+    
+    public static function exitGroup(int $group_id)
+    {
+        if (!self::watchGroup($group_id)) {
+            echo "No estás en este grupo grupos";
+            return;
+        }
+
+        $userId = currentUserId();
+
+        echo $group_id;
+        echo "<br>";
+        echo $userId;
+        GrupoUsuario::exit(
+            $group_id,
+            $userId
+        );
+
+        echo redirectHome();
+        exit();
+    }
 
     public static function addUser(int $group_id)
     {

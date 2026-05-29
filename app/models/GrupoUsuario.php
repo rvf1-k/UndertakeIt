@@ -89,13 +89,12 @@ class GrupoUsuario
 
         return $stmt->fetchAll();
     }
-    
+
     public static function editGroupUsers(
         int $groupId,
         int $userId,
         string $rol
-    )
-    {
+    ) {
         $conexion = conexion();
 
         $sql = "UPDATE grupo_usuario SET rol = :rol WHERE user_id = :userId AND grupo_id = :currentGroupId;";
@@ -106,6 +105,22 @@ class GrupoUsuario
             ':currentGroupId' => $groupId,
             ':userId' => $userId,
             ':rol' => $rol
+        ]);
+    }
+
+    public static function exit(
+        int $groupId,
+        int $userId
+    ) {
+        $conexion = conexion();
+
+        $sql = "DELETE FROM grupo_usuario WHERE grupo_id = :currentGroupId and user_id = :currentUserId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentGroupId' => $groupId,
+            ':currentUserId' => $userId
         ]);
     }
 }
