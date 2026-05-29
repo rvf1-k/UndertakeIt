@@ -1,0 +1,9 @@
+title: UndertakeIt
+description: Sitio web de UndertakeIt alojado en la carpeta docs.
+baseurl: "/UndertakeIt"
+url: "https://rvf1-k.github.io"
+
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
