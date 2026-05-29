@@ -109,7 +109,6 @@ class TaskController
     public static function getTasks()
     {
         $userId = currentUserId();
-
         return Task::getAllTasks($userId);
     }
 
@@ -167,46 +166,268 @@ class TaskController
         return Task::getSectionToDoTasks($userId, $sectionId);
     }
 
-    public static function printTasks(array $tasks)
-    {
-        foreach ($tasks as $task): ?>
-            <div class="flex items-center gap-2 px-2 relative">
-                <input type="checkbox" <?php echo (TaskLogController::isCompleted($task['id'], $task['fecha_inicio']) ? "checked" : "");   ?> class="task-checkbox" data-task-id="<?= $task['id'] ?>" />
-                <span><a href="?page=group&id=<?php echo SectionController::getGroup($task['seccion_id']) ?>"><?= $task['titulo'] ?></a></span>
-                <span class="ml-auto"><?= TaskController::formatDate($task['fecha_inicio']); ?></span>
-                <form method="POST">
-                    <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
-                    <button type="submit" name="action" value="delete-task">
-                        <i class="fa-solid fa-trash" style="font-size:15px;"></i>
-                    </button>
-                </form>
-            </div>
-            <div>
-                <p><?= $task['descripcion'] ?></p>
-            </div>
-        <?php endforeach;
-    }
+public static function printTasks(array $tasks)
+{   
+    foreach ($tasks as $task): ?>
 
-    public static function printExpiredTasks(array $tasks)
-    {
-        foreach ($tasks as $task): ?>
-            <div class="flex items-center gap-2 px-2 relative">
-                <input type="checkbox" class="task-checkbox" data-task-id="<?= $task['id'] ?>" />
-                <span><a href="?page=group&id=<?php echo SectionController::getGroup($task['seccion_id']) ?>"><?= $task['titulo'] ?></a></span>
-                <span class="ml-auto text-red-500"><?= TaskController::formatDate($task['fecha_inicio']); ?></span>
-                <form method="POST">
-                    <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
-                    <button type="submit" name="action" value="delete-task">
-                        <i class="fa-solid fa-trash" style="font-size:15px;"></i>
-                    </button>
-                </form>
-            </div>
-            <div>
-                <p><?= $task['descripcion'] ?></p>
-            </div>
-        <?php endforeach;
-    }
+        <div
+            class="task-item border border-gray-200 bg-white overflow-hidden transition hover:border-gray-300"
+            data-task-id="<?= $task['id'] ?>">
 
+            <!-- TASK HEADER -->
+            <div
+                class="task-toggle flex items-center gap-3 px-4 py-3 cursor-pointer select-none">
+
+                <!-- CHECKBOX -->
+                <input
+                    type="checkbox"
+                    <?php echo (TaskLogController::isCompleted($task['id'], $task['fecha_inicio']) ? "checked" : ""); ?>
+                    class="task-checkbox"
+                    data-task-id="<?= $task['id'] ?>" />
+
+                <!-- TITULO -->
+                <div class="flex flex-col min-w-0">
+
+                    <a
+                        href="?page=group&id=<?php echo SectionController::getGroup($task['seccion_id']) ?>"
+                        class="text-sm font-medium text-gray-800 truncate">
+
+                        <?= $task['titulo'] ?>
+
+                    </a>
+
+                </div>
+
+                <!-- FECHA -->
+                <span class="ml-auto text-xs text-gray-500 whitespace-nowrap">
+
+                    <?= TaskController::formatDate($task['fecha_inicio']); ?>
+
+                </span>
+
+                <!-- TOGGLE -->
+                <button
+                    type="button"
+                    class="task-expand w-7 h-7 flex items-center justify-center text-gray-400 hover:text-gray-600 transition">
+
+                    <i class="fa-solid fa-angle-down text-xs"></i>
+
+                </button>
+
+                <!-- DELETE -->
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="task_id"
+                        value="<?= $task['id'] ?>">
+
+                    <button
+                        type="submit"
+                        name="action"
+                        value="delete-task"
+                        class="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-red-500 transition">
+
+                        <i class="fa-solid fa-trash text-xs"></i>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- TASK CONTENT -->
+            <div
+                class="task-content hidden border-t border-gray-200 bg-gray-50"
+                data-task-content="<?= $task['id'] ?>">
+
+                <div class="p-4 flex flex-col gap-4">
+
+                    <!-- DESCRIPCIÓN -->
+                    <?php if (!empty($task['descripcion'])): ?>
+
+                        <p class="text-sm text-gray-600 leading-relaxed">
+
+                            <?= $task['descripcion'] ?>
+
+                        </p>
+
+                    <?php endif; ?>
+
+                    <!-- IMÁGENES -->
+                    <div
+                        class="task-images flex flex-wrap gap-3"
+                        data-task-images="<?= $task['id'] ?>">
+
+                        <?php
+                        // TODO: Mostrar imágenes adjuntas
+                        // foreach ($imagenes as $imagen):
+                        ?>
+
+                        <!--
+                        <div class="task-image">
+                            <img
+                                src="<?= $imagen['ruta'] ?>"
+                                alt="Imagen adjunta"
+                                class="w-24 h-24 object-cover border border-gray-200">
+                        </div>
+                        -->
+
+                        <?php // endforeach;
+                        ?>
+
+                    </div>
+
+                    <!-- SUBTASKS -->
+                    <div
+                        class="task-subtasks flex flex-col gap-2"
+                        data-task-subtasks="<?= $task['id'] ?>">
+
+                        <?php
+                        // TODO: Mostrar subtareas
+                        ?>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    <?php endforeach;
+}
+
+public static function printExpiredTasks(array $tasks)
+{
+    foreach ($tasks as $task): ?>
+
+        <div
+            class="task-item border border-red-200 bg-white overflow-hidden"
+            data-task-id="<?= $task['id'] ?>">
+
+            <!-- TASK HEADER -->
+            <div
+                class="task-toggle flex items-center gap-3 px-4 py-3 cursor-pointer select-none">
+
+                <!-- CHECKBOX -->
+                <input
+                    type="checkbox"
+                    class="task-checkbox"
+                    data-task-id="<?= $task['id'] ?>" />
+
+                <!-- TITULO -->
+                <div class="flex flex-col min-w-0">
+
+                    <a
+                        href="?page=group&id=<?php echo SectionController::getGroup($task['seccion_id']) ?>"
+                        class="text-sm font-medium text-gray-800 truncate">
+
+                        <?= $task['titulo'] ?>
+
+                    </a>
+
+                </div>
+
+                <!-- FECHA -->
+                <span class="ml-auto text-xs text-red-500 whitespace-nowrap">
+
+                    <?= TaskController::formatDate($task['fecha_inicio']); ?>
+
+                </span>
+
+                <!-- TOGGLE -->
+                <button
+                    type="button"
+                    class="task-expand w-7 h-7 flex items-center justify-center text-gray-400 hover:text-gray-600 transition">
+
+                    <i class="fa-solid fa-angle-down text-xs"></i>
+
+                </button>
+
+                <!-- DELETE -->
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="task_id"
+                        value="<?= $task['id'] ?>">
+
+                    <button
+                        type="submit"
+                        name="action"
+                        value="delete-task"
+                        class="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-red-500 transition">
+
+                        <i class="fa-solid fa-trash text-xs"></i>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- TASK CONTENT -->
+            <div
+                class="task-content hidden border-t border-red-100 bg-red-50/40"
+                data-task-content="<?= $task['id'] ?>">
+
+                <div class="p-4 flex flex-col gap-4">
+
+                    <!-- DESCRIPCIÓN -->
+                    <?php if (!empty($task['descripcion'])): ?>
+
+                        <p class="text-sm text-gray-700 leading-relaxed">
+
+                            <?= $task['descripcion'] ?>
+
+                        </p>
+
+                    <?php endif; ?>
+
+                    <!-- IMÁGENES -->
+                    <div
+                        class="task-images flex flex-wrap gap-3"
+                        data-task-images="<?= $task['id'] ?>">
+
+                        <?php
+                        // TODO: Mostrar imágenes adjuntas
+                        // foreach ($imagenes as $imagen):
+                        ?>
+
+                        <!--
+                        <div class="task-image">
+                            <img
+                                src="<?= $imagen['ruta'] ?>"
+                                alt="Imagen adjunta"
+                                class="w-24 h-24 object-cover border border-red-200">
+                        </div>
+                        -->
+
+                        <?php // endforeach;
+                        ?>
+
+                    </div>
+
+                    <!-- SUBTASKS -->
+                    <div
+                        class="task-subtasks flex flex-col gap-2"
+                        data-task-subtasks="<?= $task['id'] ?>">
+
+                        <?php
+                        // TODO: Mostrar subtareas
+                        ?>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    <?php endforeach;
+}
     public static function getGroupTasks(int $taskId)
     {
         $groupId = Task::getGroupTasks($taskId);

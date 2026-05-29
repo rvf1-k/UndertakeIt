@@ -74,66 +74,71 @@ class GroupController
     public static function GroupList()
     {
         $groups = GrupoUsuario::findGroupsByUser();
+?>
 
-        echo '<ul>';
+        <ul class="flex flex-col gap-2">
 
-        foreach ($groups as $group) {
+            <?php foreach ($groups as $group): ?>
 
-            if ($group['is_default']) {
-                continue;
-            }
+                <?php
+                if ($group['is_default']) {
+                    continue;
+                }
+                ?>
+                <li class="menu-container relative">
 
-            echo "
-<li class='menu-container relative'>
-        <div class='flex items-center justify-between'>
+                    <div class="flex items-center justify-between gap-2 border-b border-gray-200 bg-white hover:bg-gray-50 transition">
 
-            <a class='flex-1 text-left' href='?page=group&id={$group['grupo_id']}'
-            >
-                " . htmlspecialchars($group['titulo']) . "
-            </a>
+                        <!-- LINK -->
+                        <a
+                            class="flex-1 text-sm text-gray-800 font-medium truncate px-3 py-2"
+                            href="?page=group&id=<?= $group['grupo_id'] ?>">
 
-            <div class='relative'>
+                            <?= htmlspecialchars($group['titulo']) ?>
 
-                <button
-                    type='button'
-                    class='menu-toggle flex items-center justify-center border border-gray-300 hover:bg-gray-200 transition text-gray-600 px-3 py-2'
-                >
-                    <i class='fa-solid fa-ellipsis'></i>
-                </button>
+                        </a>
 
-                <div class='menu-popup hidden absolute left-10 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[150px]'>
+                        <!-- MENU -->
+                        <div class="relative ml-auto">
 
-                    <a href='?page=edit-group&id={$group['grupo_id']}'>Editar</a>
+                            <button
+                                type="button"
+                                class="menu-toggle w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600 transition">
 
-                    <form method='POST'>
+                                <i class="fa-solid fa-ellipsis text-xs"></i>
 
-                        <input
-                            type='hidden'
-                            name='group_id'
-                            value='{$group['grupo_id']}'
-                        >
+                            </button>
 
-                        <button
-                            type='submit'
-                            name='action'
-                            value='delete-group'
-                            class='w-full text-left px-4 py-2 text-red-600 hover:bg-red-50'
-                        >
-                            Borrar
-                        </button>
+                            <div
+                                class="menu-popup hidden absolute right-0 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[150px]">
+                                <button class="w-full text-left px-4 py-2 hover:bg-gray-50">
+                                    <a href="?page=edit-group&id=<?= $group['grupo_id'] ?>"> Editar </a>
+                                </button>
 
-                    </form>
+                                <form method="POST">
+                                    <input type="hidden" name="group_id" value="<?= $group['grupo_id'] ?>" />
 
-                </div>
+                                    <button
+                                        type="submit"
+                                        name="action"
+                                        value="delete-group"
+                                        class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50">
+                                        Borrar
+                                    </button>
+                                </form>
+                            </div>
 
-            </div>
 
-        </div>
-</li>
-";
-        }
+                        </div>
 
-        echo '</ul>';
+                    </div>
+
+                </li>
+            <?php endforeach; ?>
+
+        </ul>
+
+<?php
     }
 
     public static function GroupTitle(int $id)

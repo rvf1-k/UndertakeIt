@@ -1,4 +1,4 @@
-<section class="flex gap-8 p-8 overflow-x-auto bg-gray-100 min-h-screen">
+<section class="flex gap-8 p-8 overflow-y-auto bg-gray-100 min-h-full max-h-full">
     <?php
     $groupId = getPathId();
     if (GroupController::watchGroup($groupId)) {
