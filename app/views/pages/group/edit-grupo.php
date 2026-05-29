@@ -218,28 +218,15 @@
 
                                         <?php if ($user['baneado'] == 0): ?>
 
-                                            <button
-                                                type="submit"
-                                                name="ban_user_id"
-                                                value="<?= $user['user_id'] ?>"
-                                                class="btn btn-danger">
-
-                                                Banear
-
+                                            <button type="button" name="ban_user_id" class="btn btn-danger btn-ban">
+                                                <a href="users/unBan?user_id=<?= $user['user_id'] ?>&group_id=<?= $groupId ?>">Banear</a> 
                                             </button>
 
                                         <?php else: ?>
 
-                                            <button
-                                                type="submit"
-                                                name="unban_user_id"
-                                                value="<?= $user['user_id'] ?>"
-                                                class="btn btn-secondary">
-
+                                            <button type="button" name="unBan_user_id" value="<?= $user['user_id'] ?>" data-group="<?= $groupId ?>" class="btn btn-danger btn-unBan">
                                                 Desbanear
-
                                             </button>
-
                                         <?php endif; ?>
 
                                     <?php endif; ?>

@@ -123,4 +123,42 @@ class GrupoUsuario
             ':currentUserId' => $userId
         ]);
     }
+
+    public static function ban(
+        int $groupId,
+        int $userId
+    ) {
+        $conexion = conexion();
+
+        $sql = "UPDATE grupo_usuario 
+            SET baneado = 1, 
+                fecha_baneo = CURRENT_TIMESTAMP 
+            WHERE grupo_id = :currentGroupId AND user_id = :currentUserId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentGroupId' => $groupId,
+            ':currentUserId' => $userId
+        ]);
+    }
+
+    public static function unBan(
+        int $groupId,
+        int $userId
+    ) {
+        $conexion = conexion();
+
+        $sql = "UPDATE grupo_usuario 
+            SET baneado = 0, 
+                fecha_baneo = CURRENT_TIMESTAMP 
+            WHERE grupo_id = :currentGroupId AND user_id = :currentUserId;";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->execute([
+            ':currentGroupId' => $groupId,
+            ':currentUserId' => $userId
+        ]);
+    }
 }

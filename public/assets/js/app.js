@@ -6,4 +6,6 @@ import "./ui/color.js";
 import "./tasks/checkbox.js";
 import "./tasks/task-form.js";
 import "./tasks/dropdown-tasks.js";
+import "./tasks/ban.js";
+import "./tasks/unBan.js";
 import "./check/caracters.js";

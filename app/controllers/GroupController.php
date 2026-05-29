@@ -342,4 +342,35 @@ class GroupController
 
         return $groupsAndSections;
     }
+
+    public static function banUser(int $userId,int $groupId)
+    {
+        if (!self::adminGroup($groupId)) {
+            echo "No tienes permiso para banear usuarios";
+            return;
+        }
+
+        GrupoUsuario::ban(
+            $groupId,
+            $userId
+        );
+
+        echo redirect();
+        exit();
+    }
+    
+    public static function unBanUser(int $userId,int $groupId)
+    {
+        if (!self::adminGroup($groupId)) {
+            echo "No tienes permiso para desbanear usuarios";
+            return;
+        }
+
+        GrupoUsuario::unBan(
+            $groupId,
+            $userId
+        );
+
+        return;
+    }
 }

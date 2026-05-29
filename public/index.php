@@ -112,6 +112,28 @@ switch ($path) {
     case '/undertakeit/public/pdf':
         TaskController::downloadAllPdf();
         exit;
+    case '/undertakeit/public/users/ban':
+        $userId  = $_GET['user_id'] ?? null;
+        $groupId = $_GET['group_id'] ?? null;
+
+        if (!$userId || !$groupId) {
+            exit;
+        }
+
+        GroupController::banUser($userId, $groupId);
+        exit;
+    
+    case '/undertakeit/public/users/unBan':
+
+        $userId  = $_GET['user_id'] ?? null;
+        $groupId = $_GET['group_id'] ?? null;
+
+        if (!$userId || !$groupId) {
+            exit;
+        }
+
+        GroupController::unBanUser($userId, $groupId);
+        exit;
     default:
         include_once __DIR__ . '/../app/views/layouts/header.php';
         include_once __DIR__ . '/../app/views/layouts/main.php';

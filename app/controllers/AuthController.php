@@ -100,7 +100,7 @@ class AuthController
             setcookie(
                 session_name(),
                 '',
-                time() - 9999,
+                1,
                 $params["path"],
                 $params["domain"],
                 $params["secure"],
@@ -108,8 +108,9 @@ class AuthController
             );
         }
 
-        session_destroy();
-
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_destroy();
+        }
         echo redirectHome();
         exit();
     }

@@ -1,6 +1,6 @@
 // Muestra u oculta el contenido de una tarea al pulsar el botón
 
-$(document).on("click", ".task-toggle", function () {
+$(document).on("click", ".task-expand", function () {
 
   const container = $(this).closest(".task-item");
 
