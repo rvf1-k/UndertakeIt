@@ -23,7 +23,3 @@ Documentación oficial del proyecto UndertakeIt desarrollada para el Proyecto Fi
 
 * [Guía de estilo](./guia-estilo.md)
 * [Prototipos](./prototipos.md)
-
-## Recursos
-
-* [Capturas de pantalla](./capturas/)
