@@ -18,7 +18,6 @@ config/
 database/
 docs/
 public/
-storage/
 ```
 
 ---
@@ -92,14 +91,6 @@ Además, actúa como punto de entrada principal de la aplicación.
 
 ---
 
-## Directorio storage
-
-Se utiliza para almacenar archivos generados o gestionados por la aplicación.
-
-En la versión actual del proyecto se emplea principalmente para el almacenamiento de imágenes y archivos adjuntos asociados a las tareas.
-
----
-
 ## Entorno de desarrollo
 
 ## Diferencias entre desarrollo y producción
@@ -132,11 +123,6 @@ undertakeit/
 │   └── js/
 │
 ├── uploads/
-│
-├── storage/
-│   ├── logs/
-│   ├── temp/
-│   └── uploads/
 │
 ├── vendor/
 │
