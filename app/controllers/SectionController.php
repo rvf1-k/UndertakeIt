@@ -160,7 +160,7 @@ class SectionController
 
         $group_id = Section::findSectionsIdGroups($sectionId);
 
-        if (GroupController::ownGroup($group_id)) {
+        if (GroupController::adminGroup($group_id)) {
             Section::delete(
                 $sectionId
             );

@@ -7,6 +7,7 @@
         if ($page != 'register' && $page != 'login') {
 
             $page = 'showcase';
+            redirectOther("showcase");
         }
     } else {
 
