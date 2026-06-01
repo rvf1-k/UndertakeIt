@@ -2,6 +2,10 @@
 
 Aplicación web de gestión de tareas desarrollada en PHP siguiendo el patrón MVC.
 
+La aplicación se encuentra desplegada y accesible en:
+
+https://undertakeit.free.nf
+
 ## Requisitos
 
 - PHP 8.0 o superior
